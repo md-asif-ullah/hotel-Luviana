@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 
 const fontSans = FontSans({
   subsets: ["latin"],
+  weight: ["200", "400", "500", "600", "700"],
   variable: "--font-sans",
 });
 
