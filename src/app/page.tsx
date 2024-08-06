@@ -1,4 +1,5 @@
 import HeroSection from "@/components/Home/HeroSection";
+import Oportitunityes from "@/components/Home/Oportitunityes";
 import WelcomeSection from "@/components/Home/WelcomeSection";
 
 export default function Home() {
@@ -6,6 +7,7 @@ export default function Home() {
     <main>
       <HeroSection />
       <WelcomeSection />
+      <Oportitunityes />
     </main>
   );
 }
