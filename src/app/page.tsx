@@ -1,4 +1,5 @@
 import AboutRestaurantSection from "@/components/Home/AboutRestaurantSection";
+import GallerySection from "@/components/Home/GallerySection";
 import HeroSection from "@/components/Home/HeroSection";
 import Oportitunityes from "@/components/Home/Oportitunityes";
 import RoomSection from "@/components/Home/RoomSection";
@@ -12,6 +13,7 @@ export default function Home() {
       <Oportitunityes />
       <RoomSection />
       <AboutRestaurantSection />
+      <GallerySection />
     </main>
   );
 }
