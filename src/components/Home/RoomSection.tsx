@@ -9,7 +9,7 @@ async function RoomSection() {
   const firstthreeRooms = data?.payload?.slice(0, 3);
 
   return (
-    <section className="min-h-screen h-full px-4 xl:px-20 md:px-10 bg-[#ffffff] pb-20 md:pt-20">
+    <section className="min-h-screen h-full px-4 xl:px-20 md:px-10 bg-[#ffffff] pb-20">
       <header className="md:flex md:justify-between items-center">
         <div>
           <Header

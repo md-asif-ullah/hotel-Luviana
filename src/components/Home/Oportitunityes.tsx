@@ -12,13 +12,13 @@ import { MdOutlineScubaDiving } from "react-icons/md";
 
 function Oportitunityes() {
   return (
-    <section className="min-h-screen h-full bg-white flex md:justify-center lg:justify-end md:relative pb-20">
+    <section className="min-h-screen h-full bg-white flex md:justify-center lg:justify-end md:relative pb-10">
       <Image
         src="/assets/home-images/amenities-new.jpg"
         alt="Amenities"
         width={1920}
         height={800}
-        className="hidden md:block object-cover mt-12 md:h-[390px] lg:h-[460px]"
+        className="hidden md:block object-cover mt-12 mb-20 md:h-[390px] lg:h-[460px]"
       />
       <div className="bg-[#3f9cc1] text-white px-4 md:px-16 py-14 lg:py-24 mb-10 md:absolute md:w-[600px] lg:mr-14 xl:mr-20 mx-4 md:mx-0">
         <h3 className="text-4xl font-semibold">Our Amenities</h3>
