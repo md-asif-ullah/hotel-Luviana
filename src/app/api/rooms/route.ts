@@ -63,3 +63,23 @@ export async function POST(req: Request) {
     });
   }
 }
+
+export async function GET() {
+  await connectToDB();
+  try {
+    const existingRooms = await Room.find();
+
+    return successResponce({
+      status: 200,
+      success: true,
+      message: "successfully",
+      payload: existingRooms,
+    });
+  } catch (error: any) {
+    return errorResponce({
+      status: 500,
+      success: false,
+      message: error.message,
+    });
+  }
+}
