@@ -1,14 +1,17 @@
 import mongoose, { Schema } from "mongoose";
 
-export interface IRoom {
+export interface IRoom extends mongoose.Document {
   name: string;
   categories: string;
   adults: number;
-  children: number;
   view: string;
   size: number;
   bedType: string;
   amenities: string;
+  children: number;
+  description: string;
+  price: number;
+  images: Array<string>;
 }
 
 const roomSchema: Schema<IRoom> = new Schema(
@@ -43,6 +46,18 @@ const roomSchema: Schema<IRoom> = new Schema(
     amenities: {
       type: String,
       required: [true, "amenities is required"],
+    },
+    images: {
+      type: [String],
+      required: [true, "images is required "],
+    },
+    price: {
+      type: Number,
+      required: [true, "price is required"],
+    },
+    description: {
+      type: String,
+      required: [true, "description is required"],
     },
   },
   { timestamps: true }
