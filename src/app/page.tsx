@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import AboutRestaurantSection from "@/components/Home/AboutRestaurantSection";
 import GallerySection from "@/components/Home/GallerySection";
 import HeroSection from "@/components/Home/HeroSection";
@@ -14,6 +15,7 @@ export default function Home() {
       <RoomSection />
       <AboutRestaurantSection />
       <GallerySection />
+      <Footer />
     </main>
   );
 }
