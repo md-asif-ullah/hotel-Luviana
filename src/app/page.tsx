@@ -1,3 +1,4 @@
+import AboutRestaurantSection from "@/components/Home/AboutRestaurantSection";
 import HeroSection from "@/components/Home/HeroSection";
 import Oportitunityes from "@/components/Home/Oportitunityes";
 import RoomSection from "@/components/Home/RoomSection";
@@ -10,6 +11,7 @@ export default function Home() {
       <WelcomeSection />
       <Oportitunityes />
       <RoomSection />
+      <AboutRestaurantSection />
     </main>
   );
 }
