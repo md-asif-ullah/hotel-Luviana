@@ -4,6 +4,7 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { IoLeafSharp } from "react-icons/io5";
 import { TfiEmail } from "react-icons/tfi";
 import moment from "moment";
+import { Separator } from "./ui/separator";
 
 function Footer() {
   const years = moment().format("YYYY");
@@ -36,8 +37,10 @@ function Footer() {
   ];
 
   return (
-    <footer className="bg-white px-4 lg:px-10 xl:px-20 h-full w-full">
-      <div className="max-w-7xl grid md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-16 lg:gap-8 text-sm">
+    <footer className="bg-white h-full w-full">
+      <Separator className="text-[#ededed]" />
+
+      <div className="max-w-7xl grid md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-16 lg:gap-8 text-sm pb-5 pt-10 px-4 md:px-10 xl:px-20">
         <section className="space-y-5">
           <Image
             src="/assets/icons/logo-footer.svg"
@@ -103,10 +106,11 @@ function Footer() {
           </div>
         </section>
       </div>
+      <Separator className="text-[#ededed]" />
 
       {/* copyright worning */}
 
-      <section className="block md:text-lg text-base text-[#667282] dark:text-[#7889a0] text-center py-10">
+      <section className="block md:text-lg text-base text-[#667282] dark:text-[#7889a0] text-center py-5">
         Copyright © {years} . All Rights Reserved.
       </section>
     </footer>
