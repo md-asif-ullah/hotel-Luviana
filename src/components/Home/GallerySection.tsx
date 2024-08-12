@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Header from "../Header";
-import PrimaryButton from "../PrimaryButton";
+import SecondaryButton from "../SecondaryButton";
 
 function GallerySection() {
   const ImageSrc = [
@@ -21,7 +21,7 @@ function GallerySection() {
         </div>
         {/* TODO: Add Link to view the gallery */}
         <div className="mt-10 text-right md:mt-0">
-          <PrimaryButton text="View Gallery" />
+          <SecondaryButton text="View Gallery" />
         </div>
       </header>
 

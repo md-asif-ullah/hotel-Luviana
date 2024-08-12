@@ -1,12 +1,13 @@
 import Image from "next/image";
-import GetRooms from "../GetRooms";
 import Header from "../Header";
-import PrimaryButton from "../PrimaryButton";
+import useGetRooms from "../useGetRooms";
+import { ApiDataTypes } from "@/types";
+import SecondaryButton from "../SecondaryButton";
 
 async function RoomSection() {
-  const data = await GetRooms();
+  const data = await useGetRooms();
 
-  const firstthreeRooms = data?.payload?.slice(0, 3);
+  const firstthreeRooms = data.payload.slice(0, 3);
 
   return (
     <section className="min-h-screen h-full px-4 xl:px-20 md:px-10 bg-[#ffffff] pb-20">
@@ -20,14 +21,14 @@ async function RoomSection() {
         <div className="mt-10 text-end md:mt-0 md:text-balance">
           {/* TODO: add room link for see all rooms */}
 
-          <PrimaryButton text="View All" />
+          <SecondaryButton text="View All" />
         </div>
       </header>
 
       {/* TODO: add room link for see room details  */}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-20 ">
-        {firstthreeRooms?.map((room: any) => (
+        {firstthreeRooms?.map((room: ApiDataTypes) => (
           <div
             key={room._id}
             className="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 cursor-pointer"
