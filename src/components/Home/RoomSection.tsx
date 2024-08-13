@@ -5,9 +5,9 @@ import { ApiDataTypes } from "@/types";
 import SecondaryButton from "../SecondaryButton";
 
 async function RoomSection() {
-  const data = await useGetRooms();
+  const rooms = await useGetRooms();
 
-  const firstthreeRooms = data.payload.slice(0, 3);
+  const firstthreeRooms = rooms?.payload?.slice(0, 3);
 
   return (
     <section className="min-h-screen h-full px-4 xl:px-20 md:px-10 bg-[#ffffff] pb-20">
@@ -24,6 +24,13 @@ async function RoomSection() {
           <SecondaryButton text="View All" />
         </div>
       </header>
+
+       {/* handle error fetching data */}
+      {rooms === null && (
+        <div className="flex justify-center items-center h-[60vh]">
+          <p className="text-2xl text-red-500">Error fetching data</p>
+        </div>
+      )}
 
       {/* TODO: add room link for see room details  */}
 
