@@ -72,7 +72,7 @@ const HeroSection = () => {
                 {slideInfo.title}
               </p>
               <Link href="/about">
-                <PrimaryButton text="MORE INFO" />
+                <PrimaryButton text="MORE INFO" style="mt-6" />
               </Link>
             </div>
           </div>

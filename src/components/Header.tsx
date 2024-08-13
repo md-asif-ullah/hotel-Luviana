@@ -1,14 +1,18 @@
+import { cn } from "@/lib/utils";
+
 type HeaderProps = {
   header: string;
   title: string;
+  headerStyle?: string;
+  titleStyle?: string;
 };
 
-function Header({ header, title }: HeaderProps) {
+function Header({ header, title, headerStyle, titleStyle }: HeaderProps) {
   return (
     <>
       <div className="bg-primary2 py-0.5 w-[70px] rounded-lg"></div>
-      <p className="mt-4 text-sm">{header}</p>
-      <h1 className="mt-5 text-4xl">{title}</h1>
+      <p className={cn("mt-4 text-sm", headerStyle)}>{header}</p>
+      <h1 className={cn("mt-5 text-4xl", titleStyle)}>{title}</h1>
     </>
   );
 }
