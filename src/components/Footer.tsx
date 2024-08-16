@@ -45,6 +45,7 @@ function Footer() {
           <Image
             src="/assets/icons/logo-footer.svg"
             alt="Logo"
+            priority
             width={200}
             height={200}
             className="w-[150px] h-[63px]"

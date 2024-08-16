@@ -4,8 +4,8 @@ function MainHeader({
   title,
   description,
 }: {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
 }) {
   return (
     <div className="text-center mx-4 md:mx-10 lg:mx-40 xl:mx-72">
