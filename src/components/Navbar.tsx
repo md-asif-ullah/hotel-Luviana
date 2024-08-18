@@ -14,7 +14,7 @@ function Navbar() {
     { name: "Home", url: "/" },
     { name: "Rooms", url: "/rooms" },
     { name: "About Luviana", url: "/about" },
-    { name: "Our Gallery", url: "/services" },
+    { name: "Our Gallery", url: "/our-gallery" },
     { name: "Contact Us", url: "/contact-us" },
   ];
 
