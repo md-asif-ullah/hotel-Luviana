@@ -37,9 +37,8 @@ function page() {
           <Image
             key={index}
             src={image.src}
-            priority
-            width={500}
-            height={500}
+            width={1000}
+            height={1000}
             alt={`gallery-image ${index}`}
             className="object-cover w-full h-[189px] lg:h-[300px] xl:h-[500px]"
           />

@@ -13,7 +13,7 @@ function Navbar() {
   const segments = [
     { name: "Home", url: "/" },
     { name: "Rooms", url: "/rooms" },
-    { name: "About Luviana", url: "/about" },
+    { name: "About Luviana", url: "/about-luviana" },
     { name: "Our Gallery", url: "/our-gallery" },
     { name: "Contact Us", url: "/contact-us" },
   ];
