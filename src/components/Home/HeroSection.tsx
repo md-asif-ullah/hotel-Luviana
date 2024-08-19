@@ -44,10 +44,16 @@ const HeroSection = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % sliders.length);
+
+      if (currentIndex === sliders.length - 1) {
+        setCurrentIndex(0);
+      }
+
+      return () => clearInterval(interval);
     }, 7000);
 
     return () => clearInterval(interval);
-  }, [sliders.length]);
+  }, [sliders.length, currentIndex]);
 
   const slideInfo = sliders[currentIndex];
 
@@ -71,7 +77,7 @@ const HeroSection = () => {
               <p className="lg:max-w-[600px] md:max-w-[450px] lg:text-lg">
                 {slideInfo.title}
               </p>
-              <Link href="/about">
+              <Link href="/about-luviana">
                 <PrimaryButton text="MORE INFO" style="mt-6" />
               </Link>
             </div>
@@ -81,13 +87,13 @@ const HeroSection = () => {
               <div
                 key={index}
                 onClick={() => setCurrentIndex(index)}
-                className={`cursor-pointer${
+                className={`cursor-pointer ${
                   currentIndex === index ? "border-2 border-white" : ""
                 } rounded-md`}
               >
                 <Image
-                  src={slider.imgUrl || ""}
-                  alt="Thumbnail Image"
+                  src={slider.imgUrl}
+                  alt={`Slide thumbnail ${index + 1}`}
                   loading="lazy"
                   width={500}
                   height={500}
