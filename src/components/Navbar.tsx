@@ -37,6 +37,8 @@ function Navbar() {
     setIsOpen((prev) => !prev);
   };
 
+  // TODO: Check user exist or not
+
   const user = true;
 
   return (

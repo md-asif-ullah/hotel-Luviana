@@ -7,6 +7,8 @@ interface Pagetype {
 }
 
 function useDeshboardSegments() {
+  // TODO: Check if user is admin or not
+
   const isAdmin = true;
 
   const deshboardSegments: Pagetype[] = isAdmin
