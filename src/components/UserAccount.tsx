@@ -15,7 +15,7 @@ import Link from "next/link";
 import useDeshboardSegments from "./hooks/UseDeshboardSegments";
 import { CgProfile } from "react-icons/cg";
 
-function UserAccount({ isRoot }: { isRoot: boolean }) {
+function UserAccount({ isRoot }: { isRoot?: boolean }) {
   const { toast } = useToast();
   const deshboardSegments = useDeshboardSegments();
 

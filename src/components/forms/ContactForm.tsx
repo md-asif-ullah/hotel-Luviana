@@ -71,6 +71,7 @@ function ContactForm() {
           control={form.control}
           name="name"
           label="Name"
+          type="text"
           placeholder="Enter your name"
         />
         <CustomForm
@@ -78,12 +79,14 @@ function ContactForm() {
           control={form.control}
           name="email"
           label="Email"
+          type="email"
           placeholder="Enter your email"
         />
         <CustomForm
           FieldType={FormFieldTypes.TextArea}
           control={form.control}
           name="message"
+          type="text"
           label="Message"
           placeholder="Enter your Message"
         />

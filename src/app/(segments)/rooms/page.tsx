@@ -22,8 +22,8 @@ async function Rooms() {
           description="The hotel is arranged on three floors, without a lift. On the ground floor, apart from the reception, there is a comfortable lounge where you can sit and drink tea."
         />
 
-         {/* handle error fetching data */}
-         
+        {/* handle error fetching data */}
+
         {rooms === null && (
           <div className="flex justify-center items-center h-screen">
             <p className="text-2xl text-red-500">Error fetching data</p>

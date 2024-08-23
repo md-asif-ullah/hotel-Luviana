@@ -22,47 +22,50 @@ interface FormProps {
   label: string;
   placeholder?: string;
   FieldType: FormFieldTypes;
+  type: string;
 }
 
-interface FormFieldProps {
-  FieldType: FormFieldTypes;
-  placeholder?: string;
-  id: string;
+function FormField({
+  props,
+  field,
+  id,
+}: {
+  props: FormProps;
   field: any;
-}
-
-function FormField({ FieldType, placeholder, id, field }: FormFieldProps) {
+  id: string;
+}) {
+  const { placeholder, FieldType, type } = props;
   switch (FieldType) {
     case FormFieldTypes.Input:
       return (
-        <Input
-          className="text-black"
-          id={id}
-          placeholder={placeholder}
-          {...field}
-        />
+        <FormControl>
+          <Input
+            type={type}
+            className="text-black focus-visible:ring-0 focus-visible:border-primary2"
+            id={id}
+            placeholder={placeholder}
+            {...field}
+          />
+        </FormControl>
       );
     case FormFieldTypes.TextArea:
       return (
-        <Textarea
-          className="text-black"
-          id={id}
-          placeholder={placeholder}
-          {...field}
-        />
+        <FormControl>
+          <Textarea
+            className="text-black"
+            id={id}
+            placeholder={placeholder}
+            {...field}
+          />
+        </FormControl>
       );
     default:
       return null;
   }
 }
 
-function CustomForm({
-  control,
-  name,
-  label,
-  FieldType,
-  placeholder,
-}: FormProps) {
+function CustomForm(props: FormProps) {
+  const { control, name, label } = props;
   const id = `field-${name}`;
 
   return (
@@ -71,16 +74,12 @@ function CustomForm({
       name={name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel htmlFor={id}>{label}</FormLabel>
+          <FormLabel htmlFor={id} className="text-black">
+            {label}
+          </FormLabel>
 
-          <FormControl>
-            <FormField
-              FieldType={FieldType}
-              id={id}
-              placeholder={placeholder}
-              field={field}
-            />
-          </FormControl>
+          <FormField props={props} field={field} id={id} />
+
           <FormMessage />
         </FormItem>
       )}

@@ -6,7 +6,7 @@ type Props = {
   text: string;
   className?: string;
   type?: "button" | "submit" | "reset";
-  loading: boolean;
+  loading?: boolean;
 };
 
 function SecondaryButton({ text, className, type, loading }: Props) {

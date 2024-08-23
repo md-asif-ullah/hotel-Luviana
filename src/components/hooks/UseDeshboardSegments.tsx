@@ -1,4 +1,4 @@
-import { CgProfile } from "react-icons/cg";
+import { FaHouse } from "react-icons/fa6";
 
 interface Pagetype {
   label: string;
@@ -12,9 +12,9 @@ function useDeshboardSegments() {
   const deshboardSegments: Pagetype[] = isAdmin
     ? [
         {
-          label: "Profile",
-          to: "/deshbord/profile",
-          icon: <CgProfile />,
+          label: "Add Room",
+          to: "/deshboard/add-room",
+          icon: <FaHouse />,
         },
       ]
     : [];
