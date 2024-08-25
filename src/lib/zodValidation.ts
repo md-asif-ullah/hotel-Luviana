@@ -12,3 +12,11 @@ export const addRoomFormSchema = z.object({
   description: z.string().min(50).max(500),
   price: z.string().min(1).max(10),
 });
+
+export const registerFormSchema = z.object({
+  firstName: z.string().min(4).max(20),
+  lastName: z.string().optional(),
+  email: z.string().email(),
+  password: z.string().min(8).max(20),
+  confirmPassword: z.string().min(8).max(20),
+});

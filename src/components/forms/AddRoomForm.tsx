@@ -12,7 +12,7 @@ import { Input } from "../ui/input";
 import Image from "next/image";
 import { RxCross2 } from "react-icons/rx";
 import { useToast } from "../ui/use-toast";
-import { addRoomFormSchema } from "@/zod/zodValidation";
+import { addRoomFormSchema } from "@/lib/zodValidation";
 
 export enum FormFieldTypes {
   Input = "input",

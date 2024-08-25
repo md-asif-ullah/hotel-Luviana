@@ -39,7 +39,7 @@ function Navbar() {
 
   // TODO: Check user exist or not
 
-  const user = true;
+  const user = false;
 
   return (
     <nav

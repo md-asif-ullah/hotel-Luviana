@@ -1,5 +1,6 @@
 import ContactInfo from "@/components/contact/ContactInfo";
 import ContactForm from "@/components/forms/ContactForm";
+import InfomationSection from "@/components/InfomationSection";
 
 function ContactUs() {
   return (
@@ -15,6 +16,12 @@ function ContactUs() {
               regarding accommodation. We would love to have you stay with us!
             </p>
           </section>
+
+          <InfomationSection
+            title="Contact Information"
+            description="Feel free to contact us directly if you have any inquiries regarding accommodation. We would love to have you stay with us!"
+          />
+
           {/* Contact Form Section */}
           <section className="mt-5">
             <ContactForm />
