@@ -1,4 +1,4 @@
-import { errorResponce, successResponce } from "@/helper/handleResponce";
+import { errorResponse, successResponse } from "@/helper/handleResponse";
 import connectToDB from "@/lib/ConnectToDB";
 import Room from "@/models/RoomModels";
 
@@ -9,14 +9,14 @@ export async function GET(request: Request) {
 
     const existingRooms = await Room.findById(id);
 
-    return successResponce({
+    return successResponse({
       status: 200,
       success: true,
       message: "successfully",
       payload: existingRooms,
     });
   } catch (error: any) {
-    return errorResponce({
+    return errorResponse({
       status: 500,
       success: false,
       message: error.message,

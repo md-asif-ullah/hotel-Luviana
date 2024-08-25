@@ -1,4 +1,4 @@
-import { errorResponce, successResponce } from "@/helper/handleResponce";
+import { errorResponse, successResponse } from "@/helper/handleResponse";
 import cloudinary from "@/lib/cloudinary";
 import connectToDB from "@/lib/ConnectToDB";
 import Room from "@/models/RoomModels";
@@ -48,7 +48,7 @@ export async function POST(req: Request) {
 
     const addRoom = await Room.create(data);
 
-    return successResponce({
+    return successResponse({
       status: 200,
       success: true,
       message: "room create successfully",
@@ -56,7 +56,7 @@ export async function POST(req: Request) {
     });
   } catch (error: any) {
     console.error("Error in api/add-rooms route:", error);
-    return errorResponce({
+    return errorResponse({
       status: 500,
       success: false,
       message: error.message,
@@ -69,14 +69,14 @@ export async function GET() {
   try {
     const existingRooms = await Room.find();
 
-    return successResponce({
+    return successResponse({
       status: 200,
       success: true,
       message: "successfully",
       payload: existingRooms,
     });
   } catch (error: any) {
-    return errorResponce({
+    return errorResponse({
       status: 500,
       success: false,
       message: error.message,

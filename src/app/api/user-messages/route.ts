@@ -1,4 +1,4 @@
-import { errorResponce, successResponce } from "@/helper/handleResponce";
+import { errorResponse, successResponse } from "@/helper/handleResponse";
 import connectToDB from "@/lib/ConnectToDB";
 import UserMessages from "@/models/MessageModel";
 
@@ -9,13 +9,13 @@ export async function POST(request: Request) {
 
     await UserMessages.create(message);
 
-    return successResponce({
+    return successResponse({
       status: 200,
       success: true,
       message: "successfully",
     });
   } catch (error: any) {
-    return errorResponce({
+    return errorResponse({
       status: 500,
       success: false,
       message: error.message,

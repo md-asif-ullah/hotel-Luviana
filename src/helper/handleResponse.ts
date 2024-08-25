@@ -5,7 +5,7 @@ type ResponsePropsType = {
   payload?: any;
 };
 
-const successResponce = ({
+const successResponse = ({
   status = 200,
   success = true,
   message = "successfully",
@@ -19,7 +19,7 @@ const successResponce = ({
   });
 };
 
-const errorResponce = ({
+const errorResponse = ({
   status = 500,
   success = false,
   message = "error somthing went worn",
@@ -31,4 +31,4 @@ const errorResponce = ({
   });
 };
 
-export { successResponce, errorResponce };
+export { successResponse, errorResponse };
