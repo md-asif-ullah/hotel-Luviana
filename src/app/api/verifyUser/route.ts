@@ -7,11 +7,11 @@ export async function POST(request: Request) {
   await connectToDB();
 
   try {
-    const { id, verificationCode } = await request.json();
+    const { email, verificationCode } = await request.json();
 
-    console.log(id, verificationCode);
+    console.log(email, verificationCode);
 
-    const existUser = await User.findOne({ _id: id }).select("-password");
+    const existUser = await User.findOne({ email }).select("-password");
 
     if (!existUser) {
       return errorResponse({

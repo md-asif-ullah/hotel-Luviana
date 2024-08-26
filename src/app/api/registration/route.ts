@@ -40,8 +40,6 @@ export async function POST(request: Request) {
       await newUser.save();
     }
 
-    const existUser = await User.findOne({ email }).select("-password");
-
     const mailData = {
       from: process.env.SMTP_USERNAME,
       to: email,
@@ -65,7 +63,7 @@ export async function POST(request: Request) {
       status: 200,
       success: true,
       message: "successfully",
-      payload: existUser,
+      payload: { email },
     });
   } catch (error: any) {
     return errorResponse({

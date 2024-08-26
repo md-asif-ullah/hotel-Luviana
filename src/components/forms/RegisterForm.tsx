@@ -12,7 +12,6 @@ import { Checkbox } from "../ui/checkbox";
 import { useToast } from "../ui/use-toast";
 import { registerFormSchema } from "@/lib/zodValidation";
 import { useRouter } from "next/navigation";
-import axios from "axios";
 
 export enum FormFieldTypes {
   Input = "input",
@@ -54,25 +53,44 @@ function RegisterForm() {
       setError("");
       setLoading(true);
 
-      const res = await axios.post("/api/registration", newFormData);
-      if (res.data.success) {
-        setLoading(false);
-        form.reset();
+      const res = await fetch("/api/registration", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newFormData),
+      });
 
-        router.push(`/verify/${res.data?.payload?._id}`);
+      if (!res.ok) {
+        throw new Error("failed to register");
+      }
+
+      const data = await res.json();
+
+      if (data.success) {
+        form.reset();
+        router.push(`/verify/${encodeURIComponent(data?.payload?.email)}`);
         toast({
           title: "success",
           description:
             "A verification code has been sent to your email. Please verify your email",
         });
       }
-    } catch (error) {
-      setLoading(false);
+      if (!data.success) {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: data?.message || "failed to register",
+        });
+      }
+    } catch (error: any) {
       toast({
         variant: "destructive",
         title: "Error",
-        description: "registration failed",
+        description: error?.message || "failed to register",
       });
+    } finally {
+      setLoading(false);
     }
   }
 
