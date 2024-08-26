@@ -9,6 +9,7 @@ export interface IUserType extends mongoose.Document {
   verificationCode: string;
   verificationCodeExpires: number;
   isVerified: boolean;
+  isBanned: boolean;
 }
 
 const userSchema: Schema<IUserType> = new Schema(
@@ -35,6 +36,10 @@ const userSchema: Schema<IUserType> = new Schema(
       type: Number,
     },
     isVerified: {
+      type: Boolean,
+      default: false,
+    },
+    isBanned: {
       type: Boolean,
       default: false,
     },

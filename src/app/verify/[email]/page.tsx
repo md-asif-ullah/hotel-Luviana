@@ -89,7 +89,7 @@ function Verify() {
           className="flex flex-col items-center space-y-4 "
         >
           <InputOTPGroup>
-            <InputOTPSlot index={0} className="border-red-900" />
+            <InputOTPSlot index={0} />
             <InputOTPSlot index={1} />
             <InputOTPSlot index={2} />
             <InputOTPSlot index={3} />

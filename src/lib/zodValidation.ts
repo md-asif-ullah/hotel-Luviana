@@ -20,3 +20,8 @@ export const registerFormSchema = z.object({
   password: z.string().min(8).max(20),
   confirmPassword: z.string().min(8).max(20),
 });
+
+export const loginFormSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(8).max(20),
+});

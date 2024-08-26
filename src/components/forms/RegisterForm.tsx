@@ -15,7 +15,6 @@ import { useRouter } from "next/navigation";
 
 export enum FormFieldTypes {
   Input = "input",
-  TextArea = "textarea",
 }
 
 function RegisterForm() {
