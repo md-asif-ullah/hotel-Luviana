@@ -3,6 +3,7 @@ import Header from "../Header";
 import useGetRooms from "../useGetRooms";
 import { ApiDataTypes } from "@/types";
 import SecondaryButton from "../SecondaryButton";
+import Link from "next/link";
 
 async function RoomSection() {
   const rooms = await useGetRooms();
@@ -19,20 +20,18 @@ async function RoomSection() {
           />
         </div>
         <div className="mt-10 text-end md:mt-0 md:text-balance">
-          {/* TODO: add room link for see all rooms */}
-
-          <SecondaryButton text="View All" />
+          <Link href="/rooms">
+            <SecondaryButton text="View All" />
+          </Link>
         </div>
       </header>
 
-       {/* handle error fetching data */}
+      {/* handle error fetching data */}
       {rooms === null && (
         <div className="flex justify-center items-center h-[60vh]">
           <p className="text-2xl text-red-500">Error fetching data</p>
         </div>
       )}
-
-      {/* TODO: add room link for see room details  */}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-20 ">
         {firstthreeRooms?.map((room: ApiDataTypes) => (

@@ -3,6 +3,7 @@ import React from "react";
 import PrimaryButton from "../PrimaryButton";
 import Link from "next/link";
 import Header from "../Header";
+import SecondaryButton from "../SecondaryButton";
 
 const WelcomeSection = () => {
   return (
@@ -39,8 +40,8 @@ const WelcomeSection = () => {
             top floor, there is also a charming terrace or solarium available
             for the use of guests, from where you can enjoy the view.
           </p>
-          <Link href="">
-            <PrimaryButton text="Read More" style="mt-5" />
+          <Link href="/about-luviana">
+            <SecondaryButton text="Read More" className="mt-5" />
           </Link>
         </div>
       </div>
