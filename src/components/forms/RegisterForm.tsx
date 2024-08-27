@@ -12,10 +12,7 @@ import { Checkbox } from "../ui/checkbox";
 import { useToast } from "../ui/use-toast";
 import { registerFormSchema } from "@/lib/zodValidation";
 import { useRouter } from "next/navigation";
-
-export enum FormFieldTypes {
-  Input = "input",
-}
+import { FormFieldTypes } from "../CustomForm";
 
 function RegisterForm() {
   const [loading, setLoading] = useState<boolean>(false);

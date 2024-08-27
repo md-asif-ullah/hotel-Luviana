@@ -8,11 +8,7 @@ import CustomForm from "../CustomForm";
 import SecondaryButton from "../SecondaryButton";
 import { useState } from "react";
 import { useToast } from "../ui/use-toast";
-
-export enum FormFieldTypes {
-  Input = "input",
-  TextArea = "textarea",
-}
+import { FormFieldTypes } from "../CustomForm";
 
 const formSchema = z.object({
   name: z.string().min(4).max(20),

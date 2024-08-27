@@ -4,7 +4,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Form } from "@/components/ui/form";
-import CustomForm from "@/components/CustomForm";
+import CustomForm, { FormFieldTypes } from "@/components/CustomForm";
 import SecondaryButton from "@/components/SecondaryButton";
 import { useState } from "react";
 import { Label } from "@/components/ui/label";
@@ -14,10 +14,6 @@ import { useRouter } from "next/navigation";
 import { loginFormSchema } from "@/lib/zodValidation";
 import Link from "next/link";
 import InfomationSection from "@/components/InfomationSection";
-
-export enum FormFieldTypes {
-  Input = "input",
-}
 
 function RegisterForm() {
   const [loading, setLoading] = useState<boolean>(false);
