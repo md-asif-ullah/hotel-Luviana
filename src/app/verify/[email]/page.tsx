@@ -17,56 +17,54 @@ function Verify() {
   const { toast } = useToast();
   const router = useRouter();
 
-  const newData = {
-    email: decodeURIComponent(email),
-    verificationCode: value,
-  };
-
-  const handleOtp = async () => {
-    setLoading(true);
-    try {
-      const res = await fetch("/api/verifyUser", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newData),
-      });
-
-      if (!res.ok) {
-        throw new Error("verification failed");
-      }
-      const data = await res.json();
-
-      if (data.success) {
-        toast({
-          title: "Account verified",
-          description: "You can now login to your account",
+  useEffect(() => {
+    const newData = {
+      email: decodeURIComponent(email),
+      verificationCode: value,
+    };
+    const handleOtp = async () => {
+      setLoading(true);
+      try {
+        const res = await fetch("/api/verifyUser", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newData),
         });
-        router.push("/");
-      }
-      if (!data.success) {
+
+        if (!res.ok) {
+          throw new Error("verification failed");
+        }
+        const data = await res.json();
+
+        if (data.success) {
+          toast({
+            title: "Account verified",
+            description: "You can now login to your account",
+          });
+          router.push("/");
+        }
+        if (!data.success) {
+          toast({
+            title: "Error",
+            description: data.message || "verification failed",
+          });
+        }
+      } catch (error: any) {
         toast({
           title: "Error",
-          description: data.message || "verification failed",
+          description: error.message || "verification failed",
         });
+      } finally {
+        setValue("");
+        setLoading(false);
       }
-    } catch (error: any) {
-      toast({
-        title: "Error",
-        description: error.message || "verification failed",
-      });
-    } finally {
-      setValue("");
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
+    };
     if (value.length === 6) {
       handleOtp();
     }
-  }, [value]);
+  }, [value, toast, router, email]);
 
   return (
     <div className="h-screen bg-white flex justify-center items-center px-4">
