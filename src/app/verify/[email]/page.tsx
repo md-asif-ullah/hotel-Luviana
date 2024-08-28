@@ -39,6 +39,8 @@ function Verify() {
         const data = await res.json();
 
         if (data.success) {
+          localStorage.setItem("user", JSON.stringify(data.payload));
+          console.log(data.payload);
           toast({
             title: "Account verified",
             description: "You can now login to your account",

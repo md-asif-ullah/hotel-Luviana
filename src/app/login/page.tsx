@@ -54,6 +54,8 @@ function RegisterForm() {
       const data = await res.json();
 
       if (data.success) {
+        localStorage.setItem("user", JSON.stringify(data.payload));
+
         form.reset();
         router.push(`/`);
         toast({

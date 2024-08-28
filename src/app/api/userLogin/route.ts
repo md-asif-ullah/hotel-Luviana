@@ -59,14 +59,11 @@ export async function POST(request: Request) {
       maxAge: 60 * 60 * 24 * 7,
     });
 
-    const withOutPassword = user.toObject() as { password?: string };
-    delete withOutPassword.password;
-
     return successResponse({
       status: 200,
       success: true,
       message: "successfully",
-      payload: withOutPassword,
+      payload: { name: user.name, email: user.email, isAdmin: user.isAdmin },
     });
   } catch (error: any) {
     return errorResponse({
