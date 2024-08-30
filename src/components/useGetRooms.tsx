@@ -1,7 +1,13 @@
 async function useGetRooms() {
   try {
-    const res = await fetch("http://localhost:3000/api/rooms", {
-      next: { revalidate: 7200 },
+    const res = await fetch("http://localhost:3000/api/get-rooms", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      next: {
+        revalidate: 300,
+      },
     });
     const data = await res.json();
     return data;

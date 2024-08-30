@@ -75,7 +75,7 @@ function AddRoomForm() {
 
     try {
       setLoading(true);
-      const res = await fetch("/api/rooms", {
+      const res = await fetch("/api/add-rooms", {
         method: "POST",
         body: formData,
       });

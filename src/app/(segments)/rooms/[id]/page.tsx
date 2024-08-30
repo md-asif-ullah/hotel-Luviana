@@ -19,7 +19,7 @@ function Room() {
   useEffect(() => {
     async function fetchRoom() {
       try {
-        const res = await fetch(`/api/rooms/${id}`);
+        const res = await fetch(`/api/get-rooms/${id}`);
         const data = await res.json();
         if (data.success) {
           setData(data.payload);
