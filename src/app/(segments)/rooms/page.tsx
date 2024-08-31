@@ -1,9 +1,9 @@
+import GetRooms from "@/components/GetRooms";
 import Header from "@/components/Header";
 import MainHeader from "@/components/MainHeader";
 import PrimaryButton from "@/components/PrimaryButton";
 import SecondaryButton from "@/components/SecondaryButton";
 import SlideImage from "@/components/SlideImage";
-import useGetRooms from "@/components/useGetRooms";
 import { ApiDataTypes } from "@/types";
 import Link from "next/link";
 import { FaEye } from "react-icons/fa";
@@ -12,7 +12,7 @@ import { IoBedOutline, IoMan } from "react-icons/io5";
 import { SlSizeFullscreen } from "react-icons/sl";
 
 async function Rooms() {
-  const rooms = await useGetRooms();
+  const rooms = await GetRooms();
 
   return (
     <main className="min-h-screen w-full h-full bg-white">

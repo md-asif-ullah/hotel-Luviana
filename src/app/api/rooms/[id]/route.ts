@@ -9,6 +9,14 @@ export async function GET(request: Request) {
 
     const existingRooms = await Room.findById(id);
 
+    if (!existingRooms) {
+      return errorResponse({
+        status: 404,
+        success: false,
+        message: "No rooms found",
+      });
+    }
+
     return successResponse({
       status: 200,
       success: true,

@@ -10,12 +10,12 @@ export interface ApiDataTypes {
   children: number;
   description: string;
   price: number;
-  images: Array<string>;
+  images: string[];
 }
 
 export interface ApiResponseTypes {
   status: number;
   success: boolean;
   message: string;
-  payload: Array<ApiDataTypes>;
+  payload: ApiDataTypes[];
 }

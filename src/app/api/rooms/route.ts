@@ -63,3 +63,31 @@ export async function POST(req: Request) {
     });
   }
 }
+
+export async function GET(req: Request) {
+  await connectToDB();
+  try {
+    const existingRooms = await Room.find();
+
+    if (!existingRooms) {
+      return errorResponse({
+        status: 404,
+        success: false,
+        message: "No rooms found",
+      });
+    }
+
+    return successResponse({
+      status: 200,
+      success: true,
+      message: "successfully",
+      payload: existingRooms,
+    });
+  } catch (error: any) {
+    return errorResponse({
+      status: 500,
+      success: false,
+      message: error.message,
+    });
+  }
+}

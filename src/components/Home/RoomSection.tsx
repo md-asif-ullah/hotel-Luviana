@@ -1,12 +1,12 @@
 import Image from "next/image";
 import Header from "../Header";
-import useGetRooms from "../useGetRooms";
 import { ApiDataTypes } from "@/types";
 import SecondaryButton from "../SecondaryButton";
 import Link from "next/link";
+import GetRooms from "../GetRooms";
 
 async function RoomSection() {
-  const rooms = await useGetRooms();
+  const rooms = await GetRooms();
 
   const firstthreeRooms = rooms?.payload?.slice(0, 3);
 
