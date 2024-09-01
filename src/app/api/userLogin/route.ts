@@ -28,6 +28,9 @@ export async function POST(request: Request) {
       });
     }
 
+    const userWithOutPassword = user.toObject();
+    userWithOutPassword.password = "";
+
     if (user.isBanned) {
       return errorResponse({
         status: 400,
@@ -45,7 +48,7 @@ export async function POST(request: Request) {
 
     JwtToken({
       name: "access_token",
-      data: { user: user },
+      data: { user: userWithOutPassword },
       secret: process.env.JWT_ACCESS_SECRET || "",
       expiresTime: "1d",
       maxAge: 60 * 60 * 24,
@@ -53,7 +56,7 @@ export async function POST(request: Request) {
 
     JwtToken({
       name: "refresh_token",
-      data: { user: user },
+      data: { user: userWithOutPassword },
       secret: process.env.JWT_REFRESH_SECRET || "",
       expiresTime: "7d",
       maxAge: 60 * 60 * 24 * 7,
@@ -63,7 +66,7 @@ export async function POST(request: Request) {
       status: 200,
       success: true,
       message: "successfully",
-      payload: { name: user.name, email: user.email, isAdmin: user.isAdmin },
+      payload: { user: userWithOutPassword },
     });
   } catch (error: any) {
     return errorResponse({

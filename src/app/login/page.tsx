@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import { loginFormSchema } from "@/lib/zodValidation";
 import Link from "next/link";
 import InfomationSection from "@/components/InfomationSection";
+import { useAuth } from "@/components/hooks/useAuth";
 
 function RegisterForm() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -29,6 +30,7 @@ function RegisterForm() {
 
   const { toast } = useToast();
   const router = useRouter();
+  const { setUser } = useAuth();
 
   async function onSubmit(values: z.infer<typeof loginFormSchema>) {
     const newFormData = {
@@ -54,7 +56,7 @@ function RegisterForm() {
       const data = await res.json();
 
       if (data.success) {
-        localStorage.setItem("user", JSON.stringify(data.payload));
+        setUser(data.payload.user);
 
         form.reset();
         router.push(`/`);

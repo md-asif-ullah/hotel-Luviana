@@ -19,3 +19,21 @@ export interface ApiResponseTypes {
   message: string;
   payload: ApiDataTypes[];
 }
+
+export interface IUserType {
+  _id: string;
+  name: string;
+  email: string;
+  isVerified: boolean;
+  isBanned: boolean;
+  isAdmin: boolean;
+}
+
+export interface IUserResponseTypes {
+  status: number;
+  success: boolean;
+  message: string;
+  payload: {
+    user: IUserType;
+  };
+}

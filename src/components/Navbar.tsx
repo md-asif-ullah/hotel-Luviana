@@ -3,10 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { Separator } from "./ui/separator";
 import UserAccount from "./UserAccount";
+import { useAuth } from "./hooks/useAuth";
 
 interface Segment {
   name: string;
@@ -37,9 +38,7 @@ function Navbar() {
     setIsOpen((prev) => !prev);
   };
 
-  // TODO: Check user exist or not
-
-  const user = false;
+  const { user } = useAuth();
 
   return (
     <nav
@@ -141,4 +140,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default memo(Navbar);

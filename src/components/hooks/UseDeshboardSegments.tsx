@@ -1,4 +1,5 @@
 import { FaHouse } from "react-icons/fa6";
+import { useAuth } from "./useAuth";
 
 interface Pagetype {
   label: string;
@@ -7,9 +8,9 @@ interface Pagetype {
 }
 
 function useDeshboardSegments() {
-  // TODO: Check if user is admin or not
+  const { user } = useAuth();
 
-  const isAdmin = true;
+  const isAdmin = user?.isAdmin;
 
   const deshboardSegments: Pagetype[] = isAdmin
     ? [

@@ -8,6 +8,7 @@ import {
 import { useToast } from "@/components/ui/use-toast";
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import { useAuth } from "@/components/hooks/useAuth";
 
 function Verify() {
   const [value, setValue] = useState<string>("");
@@ -16,6 +17,7 @@ function Verify() {
   const { email } = useParams<{ email: string }>();
   const { toast } = useToast();
   const router = useRouter();
+  const { setUser } = useAuth();
 
   useEffect(() => {
     const newData = {
@@ -39,8 +41,7 @@ function Verify() {
         const data = await res.json();
 
         if (data.success) {
-          localStorage.setItem("user", JSON.stringify(data.payload));
-          console.log(data.payload);
+          setUser(data.payload.user);
           toast({
             title: "Account verified",
             description: "You can now login to your account",
@@ -66,7 +67,7 @@ function Verify() {
     if (value.length === 6) {
       handleOtp();
     }
-  }, [value, toast, router, email]);
+  }, [value, toast, router, email, setUser]);
 
   return (
     <div className="h-screen bg-white flex justify-center items-center px-4">

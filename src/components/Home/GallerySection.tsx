@@ -20,7 +20,7 @@ function GallerySection() {
             header="Photo Gallery of Our Hotel"
           />
         </div>
-        {/* TODO: Add Link to view the gallery */}
+
         <div className="mt-10 text-right md:mt-0">
           <Link href="/our-gallery">
             <SecondaryButton text="View Gallery" />

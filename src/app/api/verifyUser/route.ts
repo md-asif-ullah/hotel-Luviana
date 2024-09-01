@@ -58,11 +58,7 @@ export async function POST(request: Request) {
       status: 200,
       success: true,
       message: "User verified successfully",
-      payload: {
-        name: existUser.name,
-        email: existUser.email,
-        isAdmin: existUser.isAdmin,
-      },
+      payload: { user: existUser },
     });
   } catch (error: any) {
     return errorResponse({
