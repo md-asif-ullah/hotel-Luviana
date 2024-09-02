@@ -14,6 +14,7 @@ import { useToast } from "./ui/use-toast";
 import Link from "next/link";
 import useDeshboardSegments from "./hooks/UseDeshboardSegments";
 import { CgProfile } from "react-icons/cg";
+import axios from "axios";
 
 function UserAccount({ isRoot }: { isRoot?: boolean }) {
   const { toast } = useToast();
@@ -21,6 +22,20 @@ function UserAccount({ isRoot }: { isRoot?: boolean }) {
 
   const handleLogOut = async () => {
     try {
+      const res = await axios.get("/api/logOut");
+      if (res.data.success) {
+        toast({
+          title: "Success",
+          description: "Successfully logged out",
+        });
+      }
+      if (!res.data.success) {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "Something went worn",
+        });
+      }
     } catch (error: any) {
       if (error.data) {
         toast({
