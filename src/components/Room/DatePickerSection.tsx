@@ -82,8 +82,11 @@ export function DatePickerSection({ data }: { data: ApiDataTypes | null }) {
 
       <div className="space-y-4">
         <div className="flex flex-wrap">
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-4 mt-2">
             <span className="text-[#818186]">Reserve</span>
+
+            {/* TODO: get data from the API and set the value of the select */}
+
             <select name="cars" className="py-1 px-2 border border-primary2">
               {[1, 2, 3, 4, 5].map((num) => (
                 <option key={num} value={num}>
@@ -91,6 +94,8 @@ export function DatePickerSection({ data }: { data: ApiDataTypes | null }) {
                 </option>
               ))}
             </select>
+            {/* TODO: get data from the API and set room quantity */}
+
             <span className="text-gray-500">of 5 available</span>
           </div>
           <p className="mt-1 text-gray-500">accommodations</p>

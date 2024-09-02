@@ -19,7 +19,7 @@ function Room() {
   useEffect(() => {
     async function fetchRoom() {
       try {
-        const res = await fetch(`/api/get-rooms/${id}`);
+        const res = await fetch(`/api/rooms/${id}`);
         const data = await res.json();
         if (data.success) {
           setData(data.payload);
@@ -34,11 +34,11 @@ function Room() {
     fetchRoom();
   }, [id]);
 
-  // if (isLoading) return Loading();
+  if (isLoading) return <Loading />;
+
   return (
     <main className="w-full min-h-screen bg-white h-full px-5 md:px-10 xl:px-20 pb-10 md:pb-20">
       {error && <p>{error}</p>}
-      {isLoading && <Loading />}
       <div className="mt-10 md:mt-28">
         <MainHeader title={data?.name} />
       </div>
