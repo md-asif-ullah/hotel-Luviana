@@ -1,5 +1,6 @@
 import { ApiDataTypes } from "@/types";
 import { FaEye } from "react-icons/fa";
+import { FaChild } from "react-icons/fa6";
 import { IoIosStar, IoMdBookmark } from "react-icons/io";
 import { IoBedOutline, IoMan } from "react-icons/io5";
 import { SlSizeFullscreen } from "react-icons/sl";
@@ -22,16 +23,15 @@ function RoomDetails({ data }: { data: ApiDataTypes | null }) {
             </td>
             <td className="md:p-4 p-2">{adults}</td>
           </tr>
-          {children && (
-            <tr className="border-b border-[#ededed]">
-              <td className="md:p-4 p-2 flex items-center space-x-2 border-r border-[#ededed]">
-                <i className="fas fa-user"></i>
-                <span>Children</span>
-              </td>
-              <td className="md:p-4 p-2">{children}</td>
-            </tr>
-          )}
-
+          <tr className="border-b border-[#ededed]">
+            <td className="md:p-4 p-2 flex items-center space-x-2 border-r border-[#ededed]">
+              <i className="text-primary2 text-lg">
+                <FaChild />
+              </i>
+              <span>Children</span>
+            </td>
+            <td className="md:p-4 p-2">{children}</td>
+          </tr>
           <tr className="border-b border-[#ededed]">
             <td className="md:p-4 p-2 flex items-center space-x-2">
               <i className="text-primary2 text-lg">

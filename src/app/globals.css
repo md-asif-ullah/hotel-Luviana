@@ -110,3 +110,7 @@
 .rootNavLinkBackground a:after {
   background: #fff;
 }
+
+.input-phone input:focus {
+  outline: none;
+}

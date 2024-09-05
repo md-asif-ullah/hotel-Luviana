@@ -6,8 +6,8 @@ import { ApiDataTypes } from "@/types";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { DatePickerSection } from "@/components/Room/DatePickerSection";
 import RoomDetails from "@/components/Room/RoomDetails";
+import BookingSection from "@/components/Room/BookingSection";
 
 function Room() {
   const [data, setData] = useState<ApiDataTypes | null>(null);
@@ -34,7 +34,12 @@ function Room() {
     fetchRoom();
   }, [id]);
 
-  if (isLoading) return <Loading />;
+  if (isLoading)
+    return (
+      <div className="h-screen w-full pt-20">
+        <Loading />
+      </div>
+    );
 
   return (
     <main className="w-full min-h-screen bg-white h-full px-5 md:px-10 xl:px-20 pb-10 md:pb-20">
@@ -91,7 +96,7 @@ function Room() {
         </div>
         <section className="col-span-2 mt-20">
           <div className="sticky top-10">
-            <DatePickerSection data={data} />
+            <BookingSection data={data} />
           </div>
         </section>
       </section>

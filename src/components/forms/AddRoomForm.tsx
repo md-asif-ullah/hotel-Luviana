@@ -247,6 +247,7 @@ function AddRoomForm() {
 
           {/* Submit Button */}
           <SecondaryButton
+            disabled={loading}
             loading={loading}
             type="submit"
             text="Add Room"

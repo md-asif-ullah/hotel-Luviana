@@ -87,6 +87,7 @@ function ContactForm() {
           placeholder="Enter your Message"
         />
         <SecondaryButton
+          disabled={loading}
           loading={loading}
           type="submit"
           text="Send Message"

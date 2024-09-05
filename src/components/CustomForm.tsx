@@ -10,10 +10,14 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Control } from "react-hook-form";
+import PhoneInput from "react-phone-number-input";
+import { E164Number } from "libphonenumber-js/core";
+import "react-phone-number-input/style.css";
 
 export enum FormFieldTypes {
   Input = "input",
   TextArea = "textarea",
+  PHONEINPUT = "phoneInput",
 }
 
 interface FormProps {
@@ -41,6 +45,7 @@ function FormField({
         <FormControl>
           <Input
             type={type}
+            value={field.value}
             className="text-black focus-visible:ring-0 focus-visible:border-primary2"
             id={id}
             placeholder={placeholder}
@@ -52,10 +57,25 @@ function FormField({
       return (
         <FormControl>
           <Textarea
-            className="text-black"
+            className="text-black focus-visible:ring-0 focus-visible:border-primary2"
             id={id}
             placeholder={placeholder}
             {...field}
+          />
+        </FormControl>
+      );
+    case FormFieldTypes.PHONEINPUT:
+      return (
+        <FormControl>
+          <PhoneInput
+            defaultCountry="US"
+            id={id}
+            placeholder={props.placeholder}
+            international
+            withCountryCallingCode
+            value={field.value as E164Number | undefined}
+            onChange={field.onChange}
+            className="input-phone focus-within:ring-0 focus-within:border-primary2 mt-2 h-11 rounded-md px-3 text-sm border placeholder:text-black"
           />
         </FormControl>
       );

@@ -160,6 +160,7 @@ function RegisterForm() {
         </div>
 
         <SecondaryButton
+          disabled={loading}
           loading={loading}
           type="submit"
           text="Send Message"

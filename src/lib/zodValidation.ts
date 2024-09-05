@@ -25,3 +25,14 @@ export const loginFormSchema = z.object({
   email: z.string().email(),
   password: z.string().min(8).max(20),
 });
+
+const phoneRegex = new RegExp(
+  /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/
+);
+
+export const BookingInformationFormSchema = z.object({
+  name: z.string(),
+  email: z.string().email(),
+  phoneNumber: z.string().min(10).max(15).regex(phoneRegex, "Invalid Number!"),
+  message: z.string().optional(),
+});
