@@ -15,15 +15,18 @@ import Link from "next/link";
 import useDeshboardSegments from "./hooks/UseDeshboardSegments";
 import { CgProfile } from "react-icons/cg";
 import axios from "axios";
+import { useAuth } from "./hooks/useAuth";
 
 function UserAccount({ isRoot }: { isRoot?: boolean }) {
   const { toast } = useToast();
   const deshboardSegments = useDeshboardSegments();
+  const { setUser } = useAuth();
 
   const handleLogOut = async () => {
     try {
       const res = await axios.get("/api/logOut");
       if (res.data.success) {
+        setUser(null);
         toast({
           title: "Success",
           description: "Successfully logged out",
