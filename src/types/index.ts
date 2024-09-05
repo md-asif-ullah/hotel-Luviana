@@ -10,6 +10,7 @@ export interface ApiDataTypes {
   children: number;
   description: string;
   price: number;
+  quantity: number | undefined;
   images: string[];
 }
 

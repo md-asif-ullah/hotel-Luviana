@@ -43,6 +43,7 @@ export async function POST(req: Request) {
       children: Number(formData.get("children")),
       description: formData.get("description"),
       price: Number(formData.get("price")),
+      quantity: Number(formData.get("quantity")),
       images: allImages,
     };
 

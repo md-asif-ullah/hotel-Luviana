@@ -22,12 +22,12 @@ export default function BookingSection({
 }: {
   data: ApiDataTypes | null;
 }) {
+  const [roomQuantity, setRoomQuantity] = useState<number>(1);
+  const [error, setError] = useState<string | null>(null);
   const [date, setDate] = useState<DateRange | undefined>({
     from: new Date(),
     to: addDays(new Date(), 9),
   });
-  const [roomQuantity, setRoomQuantity] = useState<number>(1);
-  const [error, setError] = useState<string | null>(null);
 
   const disablePreviousDates = (date: Date) => {
     return isBefore(date, new Date());
@@ -59,6 +59,13 @@ export default function BookingSection({
   // count the total price
 
   const totalPrice = (totalDays * (data?.price ?? 0) * roomQuantity).toFixed(2);
+
+  // create an array of numbers from
+
+  const array = Array.from(
+    { length: data?.quantity ?? 0 },
+    (_, index) => index
+  );
 
   // create new form data
 
@@ -116,9 +123,6 @@ export default function BookingSection({
         <div className="flex flex-wrap">
           <div className="flex items-center space-x-4">
             <span className="text-[#818186]">Reserve</span>
-
-            {/* TODO: get data from the API and set the value of the select */}
-
             <select
               onChange={(event: ChangeEvent<HTMLSelectElement>) =>
                 setRoomQuantity(Number(event.target.value))
@@ -126,15 +130,13 @@ export default function BookingSection({
               name="cars"
               className="py-1 px-2 border border-primary2"
             >
-              {[1, 2, 3, 4, 5].map((num) => (
+              {array.map((num) => (
                 <option key={num} value={num}>
                   {num}
                 </option>
               ))}
             </select>
-            {/* TODO: get data from the API and set room quantity */}
-
-            <span className="text-gray-500">of 5 available</span>
+            <span className="text-gray-500">of {data?.quantity} available</span>
           </div>
           <p className="mt-1 text-gray-500">accommodations</p>
         </div>

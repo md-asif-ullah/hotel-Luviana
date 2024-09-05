@@ -11,6 +11,7 @@ export const addRoomFormSchema = z.object({
   amenities: z.string().min(10).max(500),
   description: z.string().min(50).max(500),
   price: z.string().min(1).max(10),
+  quantity: z.string().min(1).max(30),
 });
 
 export const registerFormSchema = z.object({

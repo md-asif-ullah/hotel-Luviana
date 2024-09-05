@@ -12,6 +12,7 @@ export interface IRoom extends mongoose.Document {
   description: string;
   price: number;
   images: Array<string>;
+  quantity: number;
 }
 
 const roomSchema: Schema<IRoom> = new Schema(
@@ -58,6 +59,10 @@ const roomSchema: Schema<IRoom> = new Schema(
     description: {
       type: String,
       required: [true, "description is required"],
+    },
+    quantity: {
+      type: Number,
+      required: [true, "quantity is required"],
     },
   },
   { timestamps: true }

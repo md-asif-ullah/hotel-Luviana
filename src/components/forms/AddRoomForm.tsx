@@ -50,6 +50,7 @@ function AddRoomForm() {
       amenities: "",
       description: "",
       price: "",
+      quantity: "",
     },
   });
 
@@ -68,6 +69,7 @@ function AddRoomForm() {
     formData.append("amenities", values.amenities);
     formData.append("description", values.description);
     formData.append("price", values.price);
+    formData.append("quantity", values.quantity);
 
     for (let i = 0; i < images.length; i++) {
       formData.append("images", images[i]);
@@ -178,14 +180,24 @@ function AddRoomForm() {
           </div>
 
           {/* Prize */}
-          <CustomForm
-            FieldType={FormFieldTypes.Input}
-            control={form.control}
-            name="price"
-            label="Prize"
-            type="number"
-            placeholder="Enter room prize"
-          />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <CustomForm
+              FieldType={FormFieldTypes.Input}
+              control={form.control}
+              name="price"
+              label="Prize"
+              type="number"
+              placeholder="Enter room prize"
+            />
+            <CustomForm
+              FieldType={FormFieldTypes.Input}
+              control={form.control}
+              name="quantity"
+              label="Quantity"
+              type="number"
+              placeholder="Enter room quantity"
+            />
+          </div>
 
           {/* Amenities */}
           <CustomForm
