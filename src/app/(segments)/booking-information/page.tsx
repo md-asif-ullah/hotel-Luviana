@@ -4,7 +4,6 @@ import CustomForm, { FormFieldTypes } from "@/components/CustomForm";
 import MainHeader from "@/components/MainHeader";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -14,11 +13,11 @@ import SecondaryButton from "@/components/SecondaryButton";
 import { BookingInformationFormSchema } from "@/lib/zodValidation";
 import { useSearchParams } from "next/navigation";
 import { useAuth } from "@/components/hooks/useAuth";
-import axios from "axios";
 import { useToast } from "@/components/ui/use-toast";
+import BookingWithOutAmount from "@/components/BookingWithOutAmount";
+import PaymentSection from "@/components/PaymentSection";
 
 function BookingInformation() {
-  const [paymentMethod, setPaymentMethod] = useState<string>("pay-on-arrival");
   const [tramsAndConditions, setTermsAndConditions] = useState<boolean>(true);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -35,6 +34,7 @@ function BookingInformation() {
       email: user?.email || "",
       phoneNumber: "",
       message: "",
+      paymentMethod: "",
     },
   });
 
@@ -46,37 +46,22 @@ function BookingInformation() {
       email: values.email,
       phoneNumber: values.phoneNumber,
       message: values.message,
-      paymentMethod: paymentMethod,
+      paymentMethod: values.paymentMethod,
       ...data,
     };
 
-    try {
-      setLoading(true);
-      const res = await axios.post("/api/booking", newFormData);
+    // check the payment method and call the appropriate function
 
-      if (res.data.success) {
-        form.reset();
-        toast({
-          title: "success",
-          description: "Booking created successfully",
-        });
-      }
-
-      if (!res.data.success) {
-        toast({
-          variant: "destructive",
-          title: "error",
-          description: res.data.message,
-        });
-      }
-    } catch (error: any) {
+    if (values.paymentMethod === "pay-on-arrival") {
+      await BookingWithOutAmount({ newFormData, form, toast, setLoading });
+    } else if (values.paymentMethod === "pay-by-stripe") {
+      await PaymentSection({ newFormData, form, setLoading, toast });
+    } else {
       toast({
         variant: "destructive",
         title: "error",
-        description: error.response.data.message,
+        description: "Please select a payment method",
       });
-    } finally {
-      setLoading(false);
     }
   }
 
@@ -143,55 +128,12 @@ function BookingInformation() {
 
             <section className="py-10">
               <div className="bg-white p-8 md:p-12 shadow-lg rounded-lg mt-10">
-                <h2 className="text-2xl font-semibold mb-6">
-                  Payment Information
-                </h2>
-
-                <RadioGroup
-                  onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                    setPaymentMethod(event.target.value)
-                  }
-                  defaultValue={paymentMethod}
-                  className="space-y-6"
-                >
-                  <div className="flex items-start space-x-3">
-                    <RadioGroupItem
-                      value="pay-on-arrival"
-                      id="method1"
-                      className="mt-2"
-                    />
-                    <div>
-                      <Label
-                        htmlFor="method1"
-                        className="text-black text-lg cursor-pointer"
-                      >
-                        Pay on Arrival
-                      </Label>
-                      <p className="text-gray-600 text-sm">
-                        Pay with cash upon arrival.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start space-x-3">
-                    <RadioGroupItem
-                      value="pay-by-stripe"
-                      id="method2"
-                      className="mt-2"
-                    />
-                    <div>
-                      <Label
-                        htmlFor="method2"
-                        className="text-black text-lg cursor-pointer"
-                      >
-                        Pay by Card (Stripe)
-                      </Label>
-                      <p className="text-gray-600 text-sm">
-                        Pay with your credit card using Stripe.
-                      </p>
-                    </div>
-                  </div>
-                </RadioGroup>
+                <h2 className="text-2xl font-semibold">Payment Information</h2>
+                <CustomForm
+                  control={form.control}
+                  FieldType={FormFieldTypes.PAYMENTMETHOD}
+                  name="paymentMethod"
+                />
               </div>
             </section>
 

@@ -64,7 +64,7 @@ export default function BookingSection({
 
   const array = Array.from(
     { length: data?.quantity ?? 0 },
-    (_, index) => index
+    (_, index) => index + 1
   );
 
   // create new form data
@@ -156,7 +156,11 @@ export default function BookingSection({
             query: { newFormData: JSON.stringify(newFormData) },
           }}
         >
-          <SecondaryButton text="CONFIRM RESERVATION" className="w-full mt-4" />
+          <SecondaryButton
+            text="CONFIRM RESERVATION"
+            disabled={error ? true : false}
+            className="w-full mt-4"
+          />
         </Link>
       </div>
     </div>

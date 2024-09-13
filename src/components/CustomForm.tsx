@@ -13,20 +13,23 @@ import { Control } from "react-hook-form";
 import PhoneInput from "react-phone-number-input";
 import { E164Number } from "libphonenumber-js/core";
 import "react-phone-number-input/style.css";
+import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
+import { Label } from "./ui/label";
 
 export enum FormFieldTypes {
   Input = "input",
   TextArea = "textarea",
   PHONEINPUT = "phoneInput",
+  PAYMENTMETHOD = "paymentMethod",
 }
 
 interface FormProps {
   control: Control<any>;
   name: string;
-  label: string;
+  label?: string;
   placeholder?: string;
   FieldType: FormFieldTypes;
-  type: string;
+  type?: string;
 }
 
 function FormField({
@@ -79,6 +82,43 @@ function FormField({
           />
         </FormControl>
       );
+    case FormFieldTypes.PAYMENTMETHOD:
+      return (
+        <FormControl>
+          <RadioGroup
+            onValueChange={field.onChange}
+            defaultValue={field.value}
+            className="mt-2"
+          >
+            <FormItem className="space-x-3">
+              <FormControl>
+                <RadioGroupItem value="pay-on-arrival" />
+              </FormControl>
+              <div className="inline-grid">
+                <FormLabel className="text-black text-lg cursor-pointer">
+                  Pay on Arrival
+                </FormLabel>
+                <p className="text-gray-600 text-sm mt-1">
+                  Pay with cash upon arrival.
+                </p>
+              </div>
+            </FormItem>
+            <FormItem className="space-x-3">
+              <FormControl>
+                <RadioGroupItem value="pay-by-stripe" />
+              </FormControl>
+              <div className="inline-grid">
+                <FormLabel className="text-black text-lg cursor-pointer">
+                  Pay by Card (Stripe)
+                </FormLabel>
+                <p className="text-gray-600 text-sm mt-1">
+                  Pay with your credit card using Stripe.
+                </p>
+              </div>
+            </FormItem>
+          </RadioGroup>
+        </FormControl>
+      );
     default:
       return null;
   }
@@ -94,9 +134,7 @@ function CustomForm(props: FormProps) {
       name={name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel htmlFor={id} className="text-black">
-            {label}
-          </FormLabel>
+          {label && <FormLabel htmlFor={id}>{label}</FormLabel>}
 
           <FormField props={props} field={field} id={id} />
 

@@ -36,4 +36,5 @@ export const BookingInformationFormSchema = z.object({
   email: z.string().email(),
   phoneNumber: z.string().min(10).max(15).regex(phoneRegex, "Invalid Number!"),
   message: z.string().optional(),
+  paymentMethod: z.string(),
 });
