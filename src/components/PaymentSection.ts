@@ -1,6 +1,6 @@
 import getStripe from "@/lib/get-stripejs";
+import { BookingPropsTypes } from "@/types";
 import axios from "axios";
-import { BookingPropsTypes } from "./BookingWithOutAmount";
 
 const PaymentSection = async ({
   newFormData,
@@ -13,12 +13,13 @@ const PaymentSection = async ({
     const stripe = await getStripe();
 
     const res = await axios.post("/api/create-checkout-session", {
-      newFormData,
+      data: newFormData,
     });
 
     const session = res.data.payload;
 
-    if (stripe) {
+    if (stripe && session) {
+      form.reset();
       const result = await stripe.redirectToCheckout({
         sessionId: session.id,
       });

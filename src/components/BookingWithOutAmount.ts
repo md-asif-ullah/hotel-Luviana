@@ -1,18 +1,12 @@
-import { IBookingType } from "@/types";
+import { BookingPropsTypes } from "@/types";
 import axios from "axios";
-
-export interface BookingPropsTypes {
-  newFormData: IBookingType;
-  form: any;
-  toast: any;
-  setLoading: (loading: boolean) => void;
-}
 
 async function BookingWithOutAmount({
   newFormData,
   form,
   toast,
   setLoading,
+  router,
 }: BookingPropsTypes) {
   try {
     setLoading(true);
@@ -41,6 +35,7 @@ async function BookingWithOutAmount({
     });
   } finally {
     setLoading(false);
+    router.push("/rooms");
   }
 }
 

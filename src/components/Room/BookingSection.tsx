@@ -16,6 +16,7 @@ import SecondaryButton from "../SecondaryButton";
 import { Label } from "../ui/label";
 import { ApiDataTypes } from "@/types";
 import Link from "next/link";
+import { TotalPriceAndTotalDays } from "@/helper/TotalPriceAndTotalDays";
 
 export default function BookingSection({
   data,
@@ -26,7 +27,7 @@ export default function BookingSection({
   const [error, setError] = useState<string | null>(null);
   const [date, setDate] = useState<DateRange | undefined>({
     from: new Date(),
-    to: addDays(new Date(), 9),
+    to: addDays(new Date(), 10),
   });
 
   const disablePreviousDates = (date: Date) => {
@@ -53,12 +54,12 @@ export default function BookingSection({
     : "Pick a date";
   const toDateString = toDate ? format(toDate, "dd MMMM yyyy") : "";
 
-  const totalDays =
-    fromDate && toDate ? differenceInDays(toDate, fromDate) + 1 : 0;
-
-  // count the total price
-
-  const totalPrice = (totalDays * (data?.price ?? 0) * roomQuantity).toFixed(2);
+  const { totalPrice, totalDays } = TotalPriceAndTotalDays({
+    price: data?.price ?? 0,
+    roomQuantity,
+    fromDate: fromDate!,
+    toDate: toDate!,
+  });
 
   // create an array of numbers from
 

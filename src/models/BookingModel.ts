@@ -10,7 +10,10 @@ export interface IBookingType extends mongoose.Document {
   paymentMethod: string;
   phoneNumber: string;
   roomQuantity: number;
-  totalPrice: string;
+  totalPrice: number;
+  bookingStatus: string;
+  paymentStatus: string;
+  paymentIntentId?: string;
 }
 
 const bookingSchema: Schema<IBookingType> = new Schema(
@@ -53,8 +56,20 @@ const bookingSchema: Schema<IBookingType> = new Schema(
       required: [true, "roomQuantity is required"],
     },
     totalPrice: {
-      type: String,
+      type: Number,
       required: [true, "totalPrice is required"],
+    },
+    bookingStatus: {
+      type: String,
+      enum: ["confirmed", "cancelled", "completed"],
+      default: "confirmed",
+    },
+    paymentStatus: {
+      type: String,
+      enum: ["pending", "completed"],
+    },
+    paymentIntentId: {
+      type: String,
     },
   },
   { timestamps: true }

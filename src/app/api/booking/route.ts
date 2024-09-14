@@ -1,5 +1,7 @@
 import { errorResponse, successResponse } from "@/helper/handleResponse";
+import { TotalPriceAndTotalDays } from "@/helper/TotalPriceAndTotalDays";
 import BookingModel from "@/models/BookingModel";
+import Room from "@/models/RoomModels";
 
 export async function POST(req: Request) {
   try {
@@ -13,7 +15,24 @@ export async function POST(req: Request) {
       });
     }
 
-    const createBooking = await BookingModel.create(data);
+    const findroom = await Room.findById(data?.roomId);
+
+    if (!findroom) {
+      return errorResponse({
+        status: 400,
+        success: false,
+        message: "Room not found",
+      });
+    }
+
+    const { totalPrice } = TotalPriceAndTotalDays({
+      price: findroom?.price ?? 0,
+      roomQuantity: data.roomQuantity,
+      fromDate: new Date(data.checkIn),
+      toDate: new Date(data.checkOut),
+    });
+
+    const createBooking = await BookingModel.create({ ...data, totalPrice });
 
     if (!createBooking) {
       return errorResponse({

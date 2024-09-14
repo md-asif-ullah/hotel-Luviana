@@ -11,7 +11,7 @@ import { z } from "zod";
 import { Form } from "@/components/ui/form";
 import SecondaryButton from "@/components/SecondaryButton";
 import { BookingInformationFormSchema } from "@/lib/zodValidation";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "@/components/hooks/useAuth";
 import { useToast } from "@/components/ui/use-toast";
 import BookingWithOutAmount from "@/components/BookingWithOutAmount";
@@ -24,6 +24,7 @@ function BookingInformation() {
   const search = useSearchParams();
   const { user } = useAuth();
   const { toast } = useToast();
+  const router = useRouter();
 
   const data = JSON.parse(search.get("newFormData")!);
 
@@ -47,13 +48,23 @@ function BookingInformation() {
       phoneNumber: values.phoneNumber,
       message: values.message,
       paymentMethod: values.paymentMethod,
-      ...data,
+      checkIn: data.checkIn,
+      checkOut: data.checkOut,
+      roomQuantity: data.roomQuantity,
+      roomId: data.roomId,
+      bookingStatus: "confirmed",
     };
 
     // check the payment method and call the appropriate function
 
     if (values.paymentMethod === "pay-on-arrival") {
-      await BookingWithOutAmount({ newFormData, form, toast, setLoading });
+      await BookingWithOutAmount({
+        newFormData,
+        form,
+        toast,
+        setLoading,
+        router,
+      });
     } else if (values.paymentMethod === "pay-by-stripe") {
       await PaymentSection({ newFormData, form, setLoading, toast });
     } else {
