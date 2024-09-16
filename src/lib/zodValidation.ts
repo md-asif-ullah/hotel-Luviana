@@ -38,3 +38,11 @@ export const BookingInformationFormSchema = z.object({
   message: z.string().optional(),
   paymentMethod: z.string(),
 });
+
+export const editCustomerFormSchema = z.object({
+  name: z.string(),
+  email: z.string().email(),
+  phoneNumber: z.string().optional(),
+  isAdmin: z.string(),
+  isBanned: z.string(),
+});

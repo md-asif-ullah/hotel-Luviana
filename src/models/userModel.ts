@@ -11,6 +11,7 @@ export interface IUserType extends mongoose.Document {
   isVerified: boolean;
   isBanned: boolean;
   isAdmin: boolean;
+  phoneNumber: string;
 }
 
 const userSchema: Schema<IUserType> = new Schema(
@@ -29,6 +30,9 @@ const userSchema: Schema<IUserType> = new Schema(
       type: String,
       required: [true, "please enter your password"],
       set: (val: string) => bcrypt.hashSync(val, 10),
+    },
+    phoneNumber: {
+      type: String,
     },
     verificationCode: {
       type: String,

@@ -1,5 +1,6 @@
 import { FaHouse } from "react-icons/fa6";
 import { useAuth } from "./useAuth";
+import { IoIosPeople } from "react-icons/io";
 
 interface Pagetype {
   label: string;
@@ -18,6 +19,11 @@ function useDeshboardSegments() {
           label: "Add Room",
           to: "/deshboard/add-room",
           icon: <FaHouse />,
+        },
+        {
+          label: "Customers",
+          to: "/deshboard/customers",
+          icon: <IoIosPeople />,
         },
       ]
     : [];

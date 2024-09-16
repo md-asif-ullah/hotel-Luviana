@@ -14,13 +14,20 @@ import PhoneInput from "react-phone-number-input";
 import { E164Number } from "libphonenumber-js/core";
 import "react-phone-number-input/style.css";
 import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
-import { Label } from "./ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export enum FormFieldTypes {
   Input = "input",
   TextArea = "textarea",
   PHONEINPUT = "phoneInput",
   PAYMENTMETHOD = "paymentMethod",
+  SWITCH = "switch",
 }
 
 interface FormProps {
@@ -30,6 +37,9 @@ interface FormProps {
   placeholder?: string;
   FieldType: FormFieldTypes;
   type?: string;
+  firstItemValue?: string;
+  secondItemValue?: string;
+  title?: string;
 }
 
 function FormField({
@@ -41,7 +51,14 @@ function FormField({
   field: any;
   id: string;
 }) {
-  const { placeholder, FieldType, type } = props;
+  const {
+    placeholder,
+    FieldType,
+    type,
+    firstItemValue,
+    secondItemValue,
+    title,
+  } = props;
   switch (FieldType) {
     case FormFieldTypes.Input:
       return (
@@ -117,6 +134,20 @@ function FormField({
               </div>
             </FormItem>
           </RadioGroup>
+        </FormControl>
+      );
+    case FormFieldTypes.SWITCH:
+      return (
+        <FormControl>
+          <Select onValueChange={field.onChange} value={field.value}>
+            <SelectTrigger id={id} className="focus-within:border-primary2">
+              <SelectValue placeholder={title} />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="false">{firstItemValue}</SelectItem>
+              <SelectItem value="true">{secondItemValue}</SelectItem>
+            </SelectContent>
+          </Select>
         </FormControl>
       );
     default:

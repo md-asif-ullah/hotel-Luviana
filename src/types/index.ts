@@ -28,6 +28,8 @@ export interface IUserType {
   isVerified: boolean;
   isBanned: boolean;
   isAdmin: boolean;
+  phoneNumber?: string;
+  createdAt: string;
 }
 
 export interface IUserResponseTypes {
@@ -57,12 +59,4 @@ export interface BookingPropsTypes {
   toast: any;
   setLoading: (loading: boolean) => void;
   paymentId?: string;
-}
-
-export interface BookingPropsTypes {
-  newFormData: IBookingType;
-  form: any;
-  toast: any;
-  setLoading: (loading: boolean) => void;
-  router?: any;
 }
