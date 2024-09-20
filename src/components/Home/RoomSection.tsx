@@ -41,14 +41,14 @@ async function RoomSection() {
           >
             <Image
               src={room.images[0]}
-              alt={room.name}
+              alt={room.roomName}
               width={400}
               height={400}
               className="object-cover w-full h-[300px]"
             />
             <div className="p-4">
               <h3 className="text-xl font-semibold text-gray-800">
-                {room.name}
+                {room.roomName}
               </h3>
               <p className="text-gray-600 text-xl">
                 ${room.price} /<span className="text-sm">per night</span>

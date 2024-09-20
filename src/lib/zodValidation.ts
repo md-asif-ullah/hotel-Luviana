@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const addRoomFormSchema = z.object({
-  name: z.string().min(3).max(255),
+  roomName: z.string().min(3).max(255),
   categories: z.string().min(3).max(20),
   adults: z.string().min(1).max(10),
   children: z.string(),

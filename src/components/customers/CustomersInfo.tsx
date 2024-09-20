@@ -6,6 +6,7 @@ import { MdDelete } from "react-icons/md";
 import axios from "axios";
 import { useToast } from "../ui/use-toast";
 import { useAuth } from "../hooks/useAuth";
+import { formateData } from "@/lib/utils";
 
 interface CustomerInfoProps {
   user: IUserType;
@@ -44,22 +45,17 @@ function CustomerInfo({ user, getCustomers }: CustomerInfoProps) {
     }
   };
 
-  const date = new Date(createdAt);
-  const formattedDate = date.toLocaleDateString("en-US", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  });
+  const formattedDate = formateData(createdAt);
 
   const isDisabled = existUser?._id === _id;
 
   return (
     <TableRow key={_id}>
-      <TableCell>{name}</TableCell>
-      <TableCell>{phoneNumber}</TableCell>
-      <TableCell>{email}</TableCell>
-      <TableCell>{formattedDate}</TableCell>
-      <TableCell>
+      <TableCell className="table-cell">{name}</TableCell>
+      <TableCell className="table-cell">{phoneNumber}</TableCell>
+      <TableCell className="table-cell">{email}</TableCell>
+      <TableCell className="table-cell">{formattedDate}</TableCell>
+      <TableCell className="table-cell">
         <Link href={`/deshboard/customers/${_id}`}>
           <SecondaryButton
             text="Edit"
@@ -81,7 +77,7 @@ function CustomerInfo({ user, getCustomers }: CustomerInfoProps) {
           <p className="text-[#22c55e] bg-[#e8f9ef] py-1 rounded-md">Active</p>
         )}
       </TableCell>
-      <TableCell>
+      <TableCell className="text-center">
         <button
           disabled={isDisabled}
           onClick={handleDeleteUser}

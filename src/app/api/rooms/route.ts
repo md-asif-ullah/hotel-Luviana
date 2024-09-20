@@ -33,7 +33,7 @@ export async function POST(req: Request) {
     }
 
     const data = {
-      name: formData.get("name"),
+      roomName: formData.get("roomName"),
       categories: formData.get("categories"),
       adults: Number(formData.get("adults")),
       view: formData.get("view"),

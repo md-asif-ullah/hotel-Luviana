@@ -1,6 +1,6 @@
 export interface ApiDataTypes {
   _id: string;
-  name: string;
+  roomName: string;
   categories: string;
   adults: number;
   view: string;
@@ -51,6 +51,8 @@ export interface IBookingType {
   checkOut: string;
   roomQuantity: number;
   roomId: string;
+  bookingStatus: string;
+  paymentStatus: string;
 }
 
 export interface BookingPropsTypes {
@@ -59,4 +61,22 @@ export interface BookingPropsTypes {
   toast: any;
   setLoading: (loading: boolean) => void;
   paymentId?: string;
+  router?: any;
+}
+
+export interface IGetBookingTypes {
+  _id: string;
+  roomName: string;
+  email: string;
+  phoneNumber: string;
+  message: string | undefined;
+  paymentMethod: string;
+  checkIn: string;
+  checkOut: string;
+  roomQuantity: number;
+  roomId: string;
+  bookingStatus: string;
+  paymentStatus: string;
+  totalPrice: number;
+  createdAt: string;
 }

@@ -1,7 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 
 export interface IRoom extends mongoose.Document {
-  name: string;
+  roomName: string;
   categories: string;
   adults: number;
   view: string;
@@ -17,7 +17,7 @@ export interface IRoom extends mongoose.Document {
 
 const roomSchema: Schema<IRoom> = new Schema(
   {
-    name: {
+    roomName: {
       type: String,
       required: [true, "name is required"],
     },

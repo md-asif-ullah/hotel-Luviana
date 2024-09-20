@@ -61,12 +61,12 @@ const bookingSchema: Schema<IBookingType> = new Schema(
     },
     bookingStatus: {
       type: String,
-      enum: ["confirmed", "cancelled", "completed"],
-      default: "confirmed",
+      enum: ["pending", "confirmed", "cancelled", "completed"],
+      default: "pending",
     },
     paymentStatus: {
       type: String,
-      enum: ["pending", "completed"],
+      enum: ["pending", "completed", "cash"],
     },
     paymentIntentId: {
       type: String,

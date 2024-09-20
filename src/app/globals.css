@@ -114,3 +114,11 @@
 .input-phone input:focus {
   outline: none;
 }
+
+.table-cell {
+  @apply whitespace-nowrap text-sm text-gray-900 text-center;
+}
+
+.table-head {
+  @apply whitespace-nowrap text-center;
+}

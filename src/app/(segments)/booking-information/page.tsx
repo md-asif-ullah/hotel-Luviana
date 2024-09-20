@@ -52,7 +52,8 @@ function BookingInformation() {
       checkOut: data.checkOut,
       roomQuantity: data.roomQuantity,
       roomId: data.roomId,
-      bookingStatus: "confirmed",
+      bookingStatus: "pending",
+      paymentStatus: "cash",
     };
 
     // check the payment method and call the appropriate function

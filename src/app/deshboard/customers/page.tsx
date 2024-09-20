@@ -116,14 +116,14 @@ function Customers() {
         <Table className="border border-[#e2e8f0]">
           <TableHeader>
             <TableRow className="dark:bg-[#0f172a] bg-[#f1f5f9]">
-              <TableHead>Name</TableHead>
-              <TableHead>Phone</TableHead>
-              <TableHead>Email</TableHead>
-              <TableHead>Account create</TableHead>
-              <TableHead>Edit User</TableHead>
-              <TableHead>Role</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Delete</TableHead>
+              <TableHead className="table-head">Name</TableHead>
+              <TableHead className="table-head">Phone</TableHead>
+              <TableHead className="table-head">Email</TableHead>
+              <TableHead className="table-head">Account create</TableHead>
+              <TableHead className="table-head">Edit User</TableHead>
+              <TableHead className="table-head">Role</TableHead>
+              <TableHead className="table-head">Status</TableHead>
+              <TableHead className="table-head">Delete</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>

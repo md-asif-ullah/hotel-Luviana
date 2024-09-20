@@ -45,13 +45,13 @@ function Room() {
     <main className="w-full min-h-screen bg-white h-full px-5 md:px-10 xl:px-20 pb-10 md:pb-20">
       {error && <p>{error}</p>}
       <div className="mt-10 md:mt-28">
-        <MainHeader title={data?.name} />
+        <MainHeader title={data?.roomName} />
       </div>
 
       {data?.images[0] && (
         <Image
           src={data?.images[0]}
-          alt={data?.name}
+          alt={`${data?.roomName} image`}
           priority
           width={1200}
           height={1000}
@@ -73,7 +73,7 @@ function Room() {
                     <Image
                       key={index}
                       src={image}
-                      alt={data?.name || "Image"}
+                      alt={`${data?.roomName} images` || "Image"}
                       width={500}
                       height={600}
                       className={`${

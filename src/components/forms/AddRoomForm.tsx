@@ -40,7 +40,7 @@ function AddRoomForm() {
   const form = useForm<z.infer<typeof addRoomFormSchema>>({
     resolver: zodResolver(addRoomFormSchema),
     defaultValues: {
-      name: "",
+      roomName: "",
       categories: "",
       adults: "",
       children: "",
@@ -59,7 +59,7 @@ function AddRoomForm() {
       return setError("Please upload at least one image");
     }
     const formData = new FormData();
-    formData.append("name", values.name);
+    formData.append("roomName", values.roomName);
     formData.append("categories", values.categories);
     formData.append("adults", values.adults);
     formData.append("children", values.children);
@@ -106,15 +106,15 @@ function AddRoomForm() {
   }
 
   return (
-    <div className="xl:mx-auto max-w-4xl p-8 text-white rounded-lg shadow-lg mb-10 md:mx-5">
+    <div className="xl:mx-auto max-w-4xl p-8 bg-white rounded-lg shadow-lg mb-10 md:mx-5">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           {/* Room Name */}
           <CustomForm
             FieldType={FormFieldTypes.Input}
             control={form.control}
-            name="name"
-            label="Name"
+            name="roomName"
+            label="Room Name"
             type="text"
             placeholder="Enter your room name"
           />

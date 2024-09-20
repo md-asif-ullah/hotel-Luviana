@@ -1,6 +1,7 @@
 import { FaHouse } from "react-icons/fa6";
 import { useAuth } from "./useAuth";
 import { IoIosPeople } from "react-icons/io";
+import { CiCircleList } from "react-icons/ci";
 
 interface Pagetype {
   label: string;
@@ -24,6 +25,11 @@ function useDeshboardSegments() {
           label: "Customers",
           to: "/deshboard/customers",
           icon: <IoIosPeople />,
+        },
+        {
+          label: "Bookings",
+          to: "/deshboard/booking-list",
+          icon: <CiCircleList />,
         },
       ]
     : [];

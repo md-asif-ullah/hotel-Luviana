@@ -39,7 +39,7 @@ async function Rooms() {
 
               <div className="pt-14 lg:pt-0">
                 <Header
-                  header={room.name}
+                  header={room.roomName}
                   title={room.description}
                   headerStyle="text-2xl font-semibold text-gray-800"
                   titleStyle="text-base text-gray-500"
