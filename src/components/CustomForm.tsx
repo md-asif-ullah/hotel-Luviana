@@ -28,6 +28,7 @@ export enum FormFieldTypes {
   PHONEINPUT = "phoneInput",
   PAYMENTMETHOD = "paymentMethod",
   SWITCH = "switch",
+  SWITCH2 = "switch2",
 }
 
 interface FormProps {
@@ -40,17 +41,16 @@ interface FormProps {
   firstItemValue?: string;
   secondItemValue?: string;
   title?: string;
+  value?: string[];
 }
 
-function FormField({
-  props,
-  field,
-  id,
-}: {
+type FormFieldProps = {
   props: FormProps;
   field: any;
   id: string;
-}) {
+};
+
+function FormField({ props, field, id }: FormFieldProps) {
   const {
     placeholder,
     FieldType,
@@ -58,6 +58,7 @@ function FormField({
     firstItemValue,
     secondItemValue,
     title,
+    value,
   } = props;
   switch (FieldType) {
     case FormFieldTypes.Input:
@@ -146,6 +147,24 @@ function FormField({
             <SelectContent>
               <SelectItem value="false">{firstItemValue}</SelectItem>
               <SelectItem value="true">{secondItemValue}</SelectItem>
+            </SelectContent>
+          </Select>
+        </FormControl>
+      );
+
+    case FormFieldTypes.SWITCH2:
+      return (
+        <FormControl>
+          <Select onValueChange={field.onChange} value={field.value}>
+            <SelectTrigger id={id} className="focus-within:border-primary2">
+              <SelectValue placeholder={title} />
+            </SelectTrigger>
+            <SelectContent>
+              {value?.map((item) => (
+                <SelectItem key={item} value={item}>
+                  {item}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </FormControl>

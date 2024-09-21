@@ -27,13 +27,15 @@ async function Bookings() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Date</TableHead>
-                <TableHead>Room Name</TableHead>
-                <TableHead>Email Address</TableHead>
-                <TableHead>Check-In</TableHead>
-                <TableHead>Check-Out</TableHead>
-                <TableHead>Payment Status</TableHead>
-                <TableHead>Total Price</TableHead>
+                <TableHead className="table-head">Date</TableHead>
+                <TableHead className="table-head">Customer Name</TableHead>
+                <TableHead className="table-head">Check-In</TableHead>
+                <TableHead className="table-head">Check-Out</TableHead>
+                <TableHead className="table-head">Payment Status</TableHead>
+                <TableHead className="table-head">Total Price</TableHead>
+                <TableHead className="flex flex-col justify-center items-center">
+                  Action <span>Booking Status</span>
+                </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>

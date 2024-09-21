@@ -66,8 +66,7 @@ export interface BookingPropsTypes {
 
 export interface IGetBookingTypes {
   _id: string;
-  roomName: string;
-  email: string;
+  name: string;
   phoneNumber: string;
   message: string | undefined;
   paymentMethod: string;

@@ -62,40 +62,7 @@ export async function POST(req: Request) {
 export async function GET() {
   await connectToDB();
   try {
-    const newBookingData = await BookingModel.aggregate([
-      {
-        $addFields: {
-          roomId: { $toObjectId: "$roomId" },
-        },
-      },
-      {
-        $lookup: {
-          from: "rooms",
-          localField: "roomId",
-          foreignField: "_id",
-          as: "BookingDetails",
-        },
-      },
-      {
-        $unwind: {
-          path: "$BookingDetails",
-          preserveNullAndEmptyArrays: true,
-        },
-      },
-      {
-        $project: {
-          _id: 1,
-          email: 1,
-          checkIn: 1,
-          checkOut: 1,
-          totalPrice: 1,
-          paymentStatus: 1,
-          bookingStatus: 1,
-          createdAt: 1,
-          roomName: "$BookingDetails.roomName",
-        },
-      },
-    ]);
+    const newBookingData = await BookingModel.find();
 
     if (!newBookingData) {
       return errorResponse({
@@ -110,6 +77,50 @@ export async function GET() {
       success: true,
       message: "Booking found",
       payload: newBookingData,
+    });
+  } catch (error: any) {
+    return errorResponse({
+      status: 400,
+      success: false,
+      message: error.message,
+    });
+  }
+}
+
+export async function PUT(req: Request) {
+  await connectToDB();
+  try {
+    const data = await req.json();
+
+    if (!data) {
+      return errorResponse({
+        status: 400,
+        success: false,
+        message: "No data provided",
+      });
+    }
+
+    const updateBooking = await BookingModel.findByIdAndUpdate(
+      data.id,
+      { bookingStatus: data.bookingStatus },
+      {
+        new: true,
+      }
+    );
+
+    if (!updateBooking) {
+      return errorResponse({
+        status: 400,
+        success: false,
+        message: "Booking not updated",
+      });
+    }
+
+    return successResponse({
+      status: 200,
+      success: true,
+      message: "Booking updated successfully",
+      payload: updateBooking,
     });
   } catch (error: any) {
     return errorResponse({

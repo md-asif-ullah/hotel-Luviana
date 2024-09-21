@@ -6,41 +6,45 @@ import { IBookingType } from "@/types";
 function BookingCardSection({ data }: { data: IBookingType[] }) {
   return (
     <section className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
+      {/* Pending bookings */}
       <BookingCard
-        iconColor="text-yellow-500"
         count={
-          data.filter((booking: any) => booking.bookingStatus === "pending")
-            .length
+          data.filter(
+            (booking: IBookingType) => booking.bookingStatus === "pending"
+          ).length
         }
         label="Pending bookings"
         icon={<GiSandsOfTime />}
       />
+      {/* Confirmed bookings */}
       <BookingCard
         count={
-          data.filter((booking: any) => booking.bookingStatus === "confirmed")
-            .length
+          data.filter(
+            (booking: IBookingType) => booking.bookingStatus === "confirmed"
+          ).length
         }
         label="Confirmed bookings"
         icon={<GiConfirmed />}
-        iconColor="text-green-500"
       />
+      {/* Cancelled bookings */}
       <BookingCard
         count={
-          data.filter((booking: any) => booking.bookingStatus === "cancelled")
-            .length
+          data.filter(
+            (booking: IBookingType) => booking.bookingStatus === "cancelled"
+          ).length
         }
         label="Cancelled bookings"
         icon={<ImCancelCircle />}
-        iconColor="text-red-500"
       />
+      {/* Completed bookings */}
       <BookingCard
         count={
-          data.filter((booking: any) => booking.paymentStatus === "completed")
-            .length
+          data.filter(
+            (booking: IBookingType) => booking.bookingStatus === "completed"
+          ).length
         }
         label="Completed bookings"
         icon={<GiConfirmed />}
-        iconColor="text-green-500"
       />
     </section>
   );
