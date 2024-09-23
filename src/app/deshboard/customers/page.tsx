@@ -93,7 +93,7 @@ function Customers() {
 
   return (
     <div className=" pb-20 min-h-screen pt-10 w-full">
-      <div className="lg:px-10 px-5">
+      <div className="lg:px-6 px-4">
         <div className="border border-[#e2e8f0] text-2xl rounded-t-xl">
           <h2 className="text-start p-5">Customers List</h2>
         </div>

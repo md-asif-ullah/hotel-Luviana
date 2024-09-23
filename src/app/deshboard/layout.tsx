@@ -14,7 +14,7 @@ function layout({ children }: { children: React.ReactNode }) {
           <Separator orientation="vertical" />
         </div>
 
-        <div className="w-full">{children}</div>
+        <div className="w-full lg:w-[75%] xl:w-[81%]">{children}</div>
       </div>
     </main>
   );

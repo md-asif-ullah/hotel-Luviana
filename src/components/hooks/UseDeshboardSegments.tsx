@@ -2,6 +2,7 @@ import { FaHouse } from "react-icons/fa6";
 import { useAuth } from "./useAuth";
 import { IoIosPeople } from "react-icons/io";
 import { CiCircleList } from "react-icons/ci";
+import { MdOutlineHouse } from "react-icons/md";
 
 interface Pagetype {
   label: string;
@@ -30,6 +31,11 @@ function useDeshboardSegments() {
           label: "Bookings",
           to: "/deshboard/booking-list",
           icon: <CiCircleList />,
+        },
+        {
+          label: "Rooms",
+          to: "/deshboard/rooms",
+          icon: <MdOutlineHouse />,
         },
       ]
     : [];

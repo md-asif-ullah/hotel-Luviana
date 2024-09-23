@@ -18,7 +18,7 @@ async function Bookings() {
       <h1 className="md:text-3xl text-2xl font-semibold text-black">
         Bookings History
       </h1>
-      <main className="lg:mr-[260px] xl:mr-0 pt-10">
+      <main className="pt-10">
         {/* Appointment Cards Section */}
         <BookingCardSection data={data.payload} />
 
