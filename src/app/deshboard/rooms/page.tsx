@@ -7,6 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { ApiDataTypes } from "@/types";
 
 async function Rooms() {
   const AllRooms = await GetRooms();
@@ -31,7 +32,7 @@ async function Rooms() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {AllRooms?.payload?.map((rooms: any) => (
+            {AllRooms?.payload?.map((rooms: ApiDataTypes) => (
               <RoomsTableBody key={rooms._id} rooms={rooms} />
             ))}
           </TableBody>

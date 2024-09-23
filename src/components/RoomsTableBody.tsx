@@ -1,10 +1,9 @@
 import { TableCell, TableRow } from "@/components/ui/table";
 import Image from "next/image";
 import RoomsTableActions from "./RoomsTableActions";
+import { ApiDataTypes } from "@/types";
 
-// todo: add rooms type
-
-function RoomsTableBody({ rooms }: { rooms: any }) {
+function RoomsTableBody({ rooms }: { rooms: ApiDataTypes }) {
   const {
     _id,
     roomName,
