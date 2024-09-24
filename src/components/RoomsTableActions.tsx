@@ -41,9 +41,11 @@ function RoomsTableActions({ id }: { id: string }) {
 
   return (
     <section className="flex justify-center items-center space-x-4">
-      <button className="text-blue-600 hover:text-blue-800 transition">
-        <FaPencil className="w-5 h-5" />
-      </button>
+      <Link href={`/deshboard/rooms/edit-room/${id}`}>
+        <button className="text-blue-600 hover:text-blue-800 transition">
+          <FaPencil className="w-5 h-5" />
+        </button>
+      </Link>
       <Link href={`/deshboard/rooms/room-details/${id}`}>
         <button className="text-gray-600 hover:text-gray-800 transition">
           <IoEyeOutline className="w-5 h-5" />

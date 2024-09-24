@@ -1,5 +1,3 @@
-import Loading from "./Loading";
-
 function PageLoading({
   isLoading,
   error,

@@ -6,7 +6,7 @@ import SecondaryButton from "@/components/SecondaryButton";
 import SlideImage from "@/components/SlideImage";
 import { ApiDataTypes } from "@/types";
 import Link from "next/link";
-import { FaEye } from "react-icons/fa";
+import { FaChild, FaEye } from "react-icons/fa";
 import { IoIosStar, IoMdBookmark } from "react-icons/io";
 import { IoBedOutline, IoMan } from "react-icons/io5";
 import { SlSizeFullscreen } from "react-icons/sl";
@@ -52,6 +52,14 @@ async function Rooms() {
                       <IoMan />
                     </i>
                     <span>Adults: {room.adults}</span>
+                  </div>
+
+                  {/* Children */}
+                  <div className="flex space-x-4">
+                    <i className="text-primary2 text-xl">
+                      <FaChild />
+                    </i>
+                    <span>Children: {room.children ? room.children : 0}</span>
                   </div>
 
                   {/* View */}
