@@ -1,6 +1,7 @@
 "use client";
 
 import PageLoading from "@/components/PageLoading";
+import { IGetBookingTypes } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -9,7 +10,7 @@ import { useEffect, useState } from "react";
 const BookingDetails = () => {
   const [isLoading, setLoading] = useState<boolean>(true);
   const [isError, setError] = useState<string>("");
-  const [booking, setBooking] = useState<any>({});
+  const [booking, setBooking] = useState<IGetBookingTypes | null>(null);
 
   const { id } = useParams();
 
@@ -42,6 +43,16 @@ const BookingDetails = () => {
     return <PageLoading isLoading={isLoading} error={isError} />;
   }
 
+  if (!booking) {
+    return (
+      <div className="max-w-4xl mx-auto mt-10 p-6 bg-white rounded-lg">
+        <h1 className="text-3xl font-extrabold text-gray-800 text-center">
+          No booking found
+        </h1>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-4xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
       {/* Booking Details Header */}
@@ -66,7 +77,7 @@ const BookingDetails = () => {
           </p>
           <p className="text-gray-700">
             <strong className="font-medium text-gray-900 mr-2">Phone:</strong>
-            {booking.phone}
+            {booking.phoneNumber}
           </p>
         </div>
 
@@ -79,7 +90,7 @@ const BookingDetails = () => {
             <strong className="font-medium text-gray-900 mr-2">
               Booking ID:
             </strong>
-            {booking._id}
+            {booking.bookingId}
           </p>
           <p className="text-gray-700">
             <strong className="font-medium text-gray-900 mr-2">

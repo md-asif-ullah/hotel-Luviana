@@ -40,7 +40,7 @@ export async function POST(req: Request) {
           price_data: {
             currency: "usd",
             product_data: {
-              name: findRoom.name,
+              name: findRoom.roomName,
             },
             unit_amount: totalPrice * 100,
           },

@@ -45,6 +45,11 @@ function useDeshboardSegments() {
           to: "/deshboard/profile",
           icon: <CgProfile />,
         },
+        {
+          label: "Booking",
+          to: "/deshboard/booking",
+          icon: <CiCircleList />,
+        },
       ];
   return deshboardSegments;
 }

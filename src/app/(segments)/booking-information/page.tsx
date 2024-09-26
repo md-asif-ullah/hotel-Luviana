@@ -5,7 +5,7 @@ import MainHeader from "@/components/MainHeader";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Form } from "@/components/ui/form";
@@ -16,6 +16,7 @@ import { useAuth } from "@/components/hooks/useAuth";
 import { useToast } from "@/components/ui/use-toast";
 import BookingWithOutAmount from "@/components/BookingWithOutAmount";
 import PaymentSection from "@/components/PaymentSection";
+import { User } from "lucide-react";
 
 function BookingInformation() {
   const [tramsAndConditions, setTermsAndConditions] = useState<boolean>(true);
@@ -31,18 +32,24 @@ function BookingInformation() {
   const form = useForm<z.infer<typeof BookingInformationFormSchema>>({
     resolver: zodResolver(BookingInformationFormSchema),
     defaultValues: {
-      name: user?.name || "",
-      email: user?.email || "",
+      name: "",
+      email: "",
       phoneNumber: "",
       message: "",
       paymentMethod: "",
     },
   });
 
+  useEffect(() => {
+    form.setValue("name", user?.name!);
+    form.setValue("email", user?.email!);
+  }, [user, form]);
+
   async function onSubmit(
     values: z.infer<typeof BookingInformationFormSchema>
   ) {
     const newFormData = {
+      userId: user?._id,
       name: values.name,
       email: values.email,
       phoneNumber: values.phoneNumber,

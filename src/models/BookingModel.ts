@@ -14,6 +14,10 @@ export interface IBookingType extends mongoose.Document {
   bookingStatus: string;
   paymentStatus: string;
   paymentIntentId?: string;
+  userId: string;
+  roomName: string;
+  roomImages: string[];
+  bookingId: string;
 }
 
 const bookingSchema: Schema<IBookingType> = new Schema(
@@ -70,6 +74,22 @@ const bookingSchema: Schema<IBookingType> = new Schema(
     },
     paymentIntentId: {
       type: String,
+    },
+    userId: {
+      type: String,
+      required: [true, "userId is required"],
+    },
+    roomName: {
+      type: String,
+      required: [true, "roomName is required"],
+    },
+    roomImages: {
+      type: [String],
+      required: [true, "roomImages is required"],
+    },
+    bookingId: {
+      type: String,
+      required: [true, "BookingId is required"],
     },
   },
   { timestamps: true }

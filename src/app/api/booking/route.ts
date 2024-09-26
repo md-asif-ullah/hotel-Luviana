@@ -34,7 +34,15 @@ export async function POST(req: Request) {
       toDate: new Date(data.checkOut),
     });
 
-    const createBooking = await BookingModel.create({ ...data, totalPrice });
+    const newBookingData = {
+      ...data,
+      totalPrice,
+      bookingId: Date.now().toString() + Math.floor(Math.random() * 10000),
+      roomName: findroom.roomName,
+      roomImages: findroom.images,
+    };
+
+    const createBooking = await BookingModel.create(newBookingData);
 
     if (!createBooking) {
       return errorResponse({
