@@ -29,6 +29,7 @@ export enum FormFieldTypes {
   PAYMENTMETHOD = "paymentMethod",
   SWITCH = "switch",
   SWITCH2 = "switch2",
+  select = "select",
 }
 
 interface FormProps {
@@ -42,6 +43,7 @@ interface FormProps {
   secondItemValue?: string;
   title?: string;
   value?: string[];
+  showInfo?: boolean;
 }
 
 type FormFieldProps = {
@@ -67,6 +69,7 @@ function FormField({ props, field, id }: FormFieldProps) {
           <Input
             type={type}
             value={field.value}
+            disabled={props.showInfo}
             className="text-black focus-visible:ring-0 focus-visible:border-primary2"
             id={id}
             placeholder={placeholder}
@@ -168,6 +171,35 @@ function FormField({ props, field, id }: FormFieldProps) {
             </SelectContent>
           </Select>
         </FormControl>
+      );
+
+    case FormFieldTypes.select:
+      return (
+        <>
+          <FormControl>
+            <RadioGroup
+              onValueChange={field.onChange}
+              value={field.value}
+              disabled={props.showInfo}
+              className="flex space-x-5 mt-2"
+            >
+              {value?.map((item) => (
+                <FormItem
+                  key={item}
+                  className="flex items-center space-x-3 space-y-0"
+                >
+                  <FormControl>
+                    <RadioGroupItem value={item} />
+                  </FormControl>
+                  <FormLabel className="font-normal cursor-pointer">
+                    {item}
+                  </FormLabel>
+                </FormItem>
+              ))}
+            </RadioGroup>
+          </FormControl>
+          <FormMessage />
+        </>
       );
     default:
       return null;

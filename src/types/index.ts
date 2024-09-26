@@ -25,6 +25,7 @@ export interface IUserType {
   _id: string;
   name: string;
   email: string;
+  gender?: string;
   isVerified: boolean;
   isBanned: boolean;
   isAdmin: boolean;

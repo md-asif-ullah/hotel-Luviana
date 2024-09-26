@@ -3,6 +3,7 @@ import { useAuth } from "./useAuth";
 import { IoIosPeople } from "react-icons/io";
 import { CiCircleList } from "react-icons/ci";
 import { MdOutlineHouse } from "react-icons/md";
+import { CgProfile } from "react-icons/cg";
 
 interface Pagetype {
   label: string;
@@ -38,7 +39,13 @@ function useDeshboardSegments() {
           icon: <MdOutlineHouse />,
         },
       ]
-    : [];
+    : [
+        {
+          label: "Profile",
+          to: "/deshboard/profile",
+          icon: <CgProfile />,
+        },
+      ];
   return deshboardSegments;
 }
 export default useDeshboardSegments;

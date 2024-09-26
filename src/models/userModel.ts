@@ -12,6 +12,7 @@ export interface IUserType extends mongoose.Document {
   isBanned: boolean;
   isAdmin: boolean;
   phoneNumber: string;
+  gender: string;
 }
 
 const userSchema: Schema<IUserType> = new Schema(
@@ -32,6 +33,9 @@ const userSchema: Schema<IUserType> = new Schema(
       set: (val: string) => bcrypt.hashSync(val, 10),
     },
     phoneNumber: {
+      type: String,
+    },
+    gender: {
       type: String,
     },
     verificationCode: {
