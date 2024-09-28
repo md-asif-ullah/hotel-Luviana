@@ -12,14 +12,14 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useToast } from "./ui/use-toast";
 import Link from "next/link";
-import useDeshboardSegments from "./hooks/UseDeshboardSegments";
+import useDashboardSegments from "./hooks/useDashboardSegments";
 import { CgProfile } from "react-icons/cg";
 import axios from "axios";
 import { useAuth } from "./hooks/useAuth";
 
 function UserAccount({ isRoot }: { isRoot?: boolean }) {
   const { toast } = useToast();
-  const deshboardSegments = useDeshboardSegments();
+  const dashboardSegments = useDashboardSegments();
   const { setUser } = useAuth();
 
   const handleLogOut = async () => {
@@ -65,7 +65,7 @@ function UserAccount({ isRoot }: { isRoot?: boolean }) {
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          {deshboardSegments.map((page, index) => (
+          {dashboardSegments.map((page, index) => (
             <Link href={page.to} key={index}>
               <DropdownMenuItem>
                 <i className="mr-2 h-4 w-4">{page.icon}</i>

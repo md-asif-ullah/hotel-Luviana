@@ -83,7 +83,7 @@ function EditCustomer() {
           title: "Success",
           description: "User updated successfully",
         });
-        router.push("/deshboard/customers");
+        router.push("/dashboard/customers");
       }
       if (!res.data.success) {
         toast({

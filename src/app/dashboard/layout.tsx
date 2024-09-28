@@ -1,15 +1,15 @@
-import DeshboardNavbar from "@/components/DeshboardNavbar";
-import DeshboardSidebar from "@/components/DeshboardSidebar";
+import DashboardNavbar from "@/components/DashboardNavbar";
+import DashboardSidebar from "@/components/DashboardSidebar";
 import { Separator } from "@/components/ui/separator";
 
 function layout({ children }: { children: React.ReactNode }) {
   return (
     <main>
-      <DeshboardNavbar />
+      <DashboardNavbar />
       <div className="flex overflow-hidden">
         <div className=" hidden lg:flex">
           <div>
-            <DeshboardSidebar />
+            <DashboardSidebar />
           </div>
           <Separator orientation="vertical" />
         </div>

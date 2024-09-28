@@ -1,16 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import useDeshboardSegments from "./hooks/UseDeshboardSegments";
 import { usePathname } from "next/navigation";
+import useDashboardSegments from "./hooks/useDashboardSegments";
 
-function DeshboardSidebar() {
+function DashboardSidebar() {
   const pathname = usePathname();
-  const deshboardSegments = useDeshboardSegments();
+  const dashboardSegments = useDashboardSegments();
 
   return (
     <div className="space-y-2 flex flex-col bg-white h-full pl-5 w-64 pt-10">
-      {deshboardSegments.map((segment, index) => {
+      {dashboardSegments.map((segment, index) => {
         const isActive = pathname === segment.to;
 
         return (
@@ -46,4 +46,4 @@ function DeshboardSidebar() {
   );
 }
 
-export default DeshboardSidebar;
+export default DashboardSidebar;

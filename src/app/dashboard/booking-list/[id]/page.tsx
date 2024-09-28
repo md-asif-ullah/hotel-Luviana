@@ -168,7 +168,7 @@ const BookingDetails = () => {
 
       {/* Back Button */}
       <div className="mt-6 text-right">
-        <Link href="/deshboard/booking-list">
+        <Link href="/dashboard/booking-list">
           <button className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-all duration-300">
             Back to Booking History
           </button>

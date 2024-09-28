@@ -64,14 +64,14 @@ export async function middleware(request: NextRequest) {
 
   const userPaths =
     pathname.startsWith("/rooms/") ||
-    pathname === "/deshboard/profile" ||
-    pathname === "/deshboard/booking";
+    pathname === "/dashboard/profile" ||
+    pathname === "/dashboard/booking";
 
   const adminPaths =
-    pathname === "/deshboard/add-room" ||
-    pathname === "/deshboard/customers" ||
-    pathname === "/deshboard/booking-list" ||
-    pathname === "/deshboard/rooms";
+    pathname === "/dashboard/add-room" ||
+    pathname === "/dashboard/customers" ||
+    pathname === "/dashboard/booking-list" ||
+    pathname === "/dashboard/rooms";
 
   if (token && publicPaths) {
     return NextResponse.redirect(new URL("/", request.url));

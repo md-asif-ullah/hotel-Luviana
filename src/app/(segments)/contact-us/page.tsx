@@ -7,16 +7,6 @@ function ContactUs() {
     <div className="bg-white h-full px-4 md:px-10 xl:px-20 py-10">
       <div className="flex flex-col lg:flex-row lg:justify-between lg:space-x-10 xl:space-x-20 bg-white">
         <div className="pt-10 mb-5 lg:mb-0 lg:w-1/2 mx-5 md:mx-auto">
-          <section className="text-start max-w-md mx-auto lg:mx-0">
-            <h3 className="text-4xl text-black font-medium">
-              Contact Information
-            </h3>
-            <p className="text-gray-600 text-sm mt-4">
-              Feel free to contact us directly if you have any inquiries
-              regarding accommodation. We would love to have you stay with us!
-            </p>
-          </section>
-
           <InfomationSection
             title="Contact Information"
             description="Feel free to contact us directly if you have any inquiries regarding accommodation. We would love to have you stay with us!"

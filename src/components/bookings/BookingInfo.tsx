@@ -24,7 +24,7 @@ function BookingInfo({ booking }: { booking: IGetBookingTypes }) {
       <TableCell className="py-4 text-sm font-medium">
         <p className="whitespace-nowrap">{formattedDate}</p>
         <Link
-          href={`/deshboard/booking-list/${_id}`}
+          href={`/dashboard/booking-list/${_id}`}
           className="text-blue-500 mt-2 block"
         >
           <Button text="View Details" />

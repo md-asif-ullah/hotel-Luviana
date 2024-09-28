@@ -56,7 +56,7 @@ function CustomerInfo({ user, getCustomers }: CustomerInfoProps) {
       <TableCell className="table-cell">{email}</TableCell>
       <TableCell className="table-cell">{formattedDate}</TableCell>
       <TableCell className="table-cell">
-        <Link href={`/deshboard/customers/${_id}`}>
+        <Link href={`/dashboard/customers/${_id}`}>
           <SecondaryButton
             text="Edit"
             className="rounded-md border-primary2 border bg-white text-primary2 md:px-[20px] md:py-2 px-[20px] py-2 hover:bg-primary2 hover:text-white"

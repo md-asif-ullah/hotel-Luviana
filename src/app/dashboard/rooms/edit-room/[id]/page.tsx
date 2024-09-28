@@ -151,7 +151,7 @@ function AddRoomForm() {
         setNewImages([]);
         setExistingImages([]);
         setRemovedImages([]);
-        router.push("/deshboard/rooms");
+        router.push("/dashboard/rooms");
         router.refresh();
         toast({
           title: "success",

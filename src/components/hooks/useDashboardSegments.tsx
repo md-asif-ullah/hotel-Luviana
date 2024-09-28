@@ -11,46 +11,46 @@ interface Pagetype {
   icon: JSX.Element;
 }
 
-function useDeshboardSegments() {
+function useDashboardSegments() {
   const { user } = useAuth();
 
   const isAdmin = user?.isAdmin;
 
-  const deshboardSegments: Pagetype[] = isAdmin
+  const dashboardSegments: Pagetype[] = isAdmin
     ? [
         {
           label: "Add Room",
-          to: "/deshboard/add-room",
+          to: "/dashboard/add-room",
           icon: <FaHouse />,
         },
         {
           label: "Customers",
-          to: "/deshboard/customers",
+          to: "/dashboard/customers",
           icon: <IoIosPeople />,
         },
         {
           label: "Bookings",
-          to: "/deshboard/booking-list",
+          to: "/dashboard/booking-list",
           icon: <CiCircleList />,
         },
         {
           label: "Rooms",
-          to: "/deshboard/rooms",
+          to: "/dashboard/rooms",
           icon: <MdOutlineHouse />,
         },
       ]
     : [
         {
           label: "Profile",
-          to: "/deshboard/profile",
+          to: "/dashboard/profile",
           icon: <CgProfile />,
         },
         {
           label: "Booking",
-          to: "/deshboard/booking",
+          to: "/dashboard/booking",
           icon: <CiCircleList />,
         },
       ];
-  return deshboardSegments;
+  return dashboardSegments;
 }
-export default useDeshboardSegments;
+export default useDashboardSegments;

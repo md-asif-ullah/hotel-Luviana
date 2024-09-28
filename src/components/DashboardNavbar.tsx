@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import UserAccount from "./UserAccount";
 
-function DeshboardNavbar() {
+function DashboardNavbar() {
   return (
     <nav className="flex justify-between h-20 py-4 px-5 md:px-10 border-b border-[#e2e8f0]">
       <Link href="/" className="flex items-center">
@@ -21,4 +21,4 @@ function DeshboardNavbar() {
   );
 }
 
-export default DeshboardNavbar;
+export default DashboardNavbar;
