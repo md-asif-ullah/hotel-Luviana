@@ -80,7 +80,7 @@ function AddRoomForm() {
         const data = await res.json();
 
         if (data.success) {
-          setRoom(data.payload);
+          setRoom(data.payload.roomDetails);
         }
         if (!data.success) {
           setError(data.message);

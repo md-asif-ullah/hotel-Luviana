@@ -10,8 +10,16 @@ import GetBooking from "@/components/bookings/GetBooking";
 import BookingCardSection from "@/components/BookingCardSection";
 import { IGetBookingTypes } from "@/types";
 
-async function Bookings() {
+async function BookingsList() {
   const data = await GetBooking();
+
+  if (!data) {
+    return (
+      <div className="min-h-screen h-full bg-white p-6 md:p-8 flex items-center justify-center">
+        <h1 className="text-2xl font-bold text-black">No Bookings Found</h1>
+      </div>
+    );
+  }
 
   return (
     <div className="h-full pb-20 pt-14 xl:px-8 px-4 w-full">
@@ -50,4 +58,4 @@ async function Bookings() {
   );
 }
 
-export default Bookings;
+export default BookingsList;

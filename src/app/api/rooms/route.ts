@@ -56,7 +56,6 @@ export async function POST(req: Request) {
       payload: addRoom,
     });
   } catch (error: any) {
-    console.error("Error in api/add-rooms route:", error);
     return errorResponse({
       status: 500,
       success: false,

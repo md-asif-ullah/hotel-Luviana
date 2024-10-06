@@ -20,7 +20,7 @@ function useDashboardSegments() {
     ? [
         {
           label: "Add Room",
-          to: "/dashboard/add-room",
+          to: "/dashboard/rooms/add-room",
           icon: <FaHouse />,
         },
         {

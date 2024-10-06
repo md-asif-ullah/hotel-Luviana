@@ -73,7 +73,7 @@ export async function middleware(request: NextRequest) {
     pathname === "/dashboard/booking";
 
   const adminPaths =
-    pathname === "/dashboard/add-room" ||
+    pathname === "/dashboard/rooms/add-room" ||
     pathname === "/dashboard/customers" ||
     pathname === "/dashboard/booking-list" ||
     pathname === "/dashboard/rooms";

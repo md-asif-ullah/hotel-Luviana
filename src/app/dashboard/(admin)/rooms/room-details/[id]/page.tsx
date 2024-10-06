@@ -31,7 +31,7 @@ function RoomDetails() {
         const data = await res.json();
 
         if (data.success) {
-          setRoom(data.payload);
+          setRoom(data.payload.roomDetails);
         }
         if (!data.success) {
           setError(data.message);
@@ -52,6 +52,8 @@ function RoomDetails() {
   if (!room) {
     return <div className="text-center text-red-500">Room not found</div>;
   }
+
+  console.log(room);
 
   return (
     <div className="py-10 bg-white w-full">
@@ -93,7 +95,7 @@ function RoomDetails() {
                   alt={room.roomName}
                   width={200}
                   height={200}
-                  className="md:w-full md:h-[130px]"
+                  className="md:w-full md:h-[90px]"
                 />
               </SwiperSlide>
             ))}
