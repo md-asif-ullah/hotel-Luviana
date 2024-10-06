@@ -21,6 +21,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { FaStar } from "react-icons/fa";
+import { useState } from "react";
 
 export enum FormFieldTypes {
   Input = "input",
@@ -30,6 +32,7 @@ export enum FormFieldTypes {
   SWITCH = "switch",
   SWITCH2 = "switch2",
   select = "select",
+  RATING = "rating",
 }
 
 interface FormProps {
@@ -53,6 +56,7 @@ type FormFieldProps = {
 };
 
 function FormField({ props, field, id }: FormFieldProps) {
+  const [hover, setHover] = useState<number | null>(null);
   const {
     placeholder,
     FieldType,
@@ -201,6 +205,39 @@ function FormField({ props, field, id }: FormFieldProps) {
           <FormMessage />
         </>
       );
+
+    case FormFieldTypes.RATING:
+      return (
+        <div className="flex space-x-1 my-4">
+          {[...Array(5)].map((_, index) => {
+            const ratingValue = index + 1;
+
+            return (
+              <label key={index} className="cursor-pointer">
+                <input
+                  type="radio"
+                  name="rating"
+                  value={ratingValue}
+                  onClick={() => field.onChange(ratingValue)}
+                  className="hidden"
+                />
+                <FaStar
+                  size={20}
+                  className="transition-colors duration-200"
+                  color={
+                    ratingValue <= (hover || field.value)
+                      ? "#ffc107"
+                      : "#e4e5e9"
+                  }
+                  onMouseEnter={() => setHover(ratingValue)}
+                  onMouseLeave={() => setHover(null)}
+                />
+              </label>
+            );
+          })}
+        </div>
+      );
+
     default:
       return null;
   }

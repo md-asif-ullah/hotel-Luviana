@@ -2,34 +2,113 @@ import { errorResponse, successResponse } from "@/helper/handleResponse";
 import cloudinary from "@/lib/cloudinary";
 import connectToDB from "@/lib/ConnectToDB";
 import Room from "@/models/RoomModels";
+import mongoose from "mongoose";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(request: Request) {
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+): Promise<NextResponse> {
   await connectToDB();
   try {
-    const id = request.url.split("/").pop();
+    const roomDetails = await Room.aggregate([
+      {
+        $match: {
+          _id: new mongoose.Types.ObjectId(params.id),
+        },
+      },
+      {
+        $lookup: {
+          from: "reviews",
+          localField: "_id",
+          foreignField: "roomId",
+          as: "reviews",
+        },
+      },
 
-    const existingRooms = await Room.findById(id);
+      {
+        $unwind: {
+          path: "$reviews",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "reviews.userId",
+          foreignField: "_id",
+          as: "reviewUser",
+        },
+      },
 
-    if (!existingRooms) {
-      return errorResponse({
-        status: 404,
-        success: false,
-        message: "No rooms found",
-      });
+      {
+        $unwind: {
+          path: "$reviewUser",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+
+      {
+        $group: {
+          _id: "$_id",
+          roomDetails: {
+            $first: {
+              _id: "$_id",
+              roomName: "$roomName",
+              categories: "$categories",
+              adults: "$adults",
+              view: "$view",
+              size: "$size",
+              bedType: "$bedType",
+              amenities: "$amenities",
+              children: "$children",
+              description: "$description",
+              price: "$price",
+              images: "$images",
+              quantity: "$quantity",
+            },
+          },
+          reviews: {
+            $push: {
+              name: "$reviewUser.name",
+              comment: "$reviews.comment",
+              comfort_rating: "$reviews.comfort_rating",
+              location_rating: "$reviews.location_rating",
+              service_rating: "$reviews.service_rating",
+              staff_rating: "$reviews.staff_rating",
+              createdAt: "$reviews.createdAt",
+            },
+          },
+        },
+      },
+    ]);
+
+    if (!roomDetails) {
+      return NextResponse.json(
+        {
+          success: true,
+          message: "room not found",
+        },
+        { status: 404 }
+      );
     }
 
-    return successResponse({
-      status: 200,
-      success: true,
-      message: "successfully",
-      payload: existingRooms,
-    });
+    return NextResponse.json(
+      {
+        success: true,
+        message: "successfully",
+        payload: roomDetails[0],
+      },
+      { status: 200 }
+    );
   } catch (error: any) {
-    return errorResponse({
-      status: 500,
-      success: false,
-      message: error.message,
-    });
+    return NextResponse.json(
+      {
+        success: false,
+        message: error.message,
+      },
+      { status: 500 }
+    );
   }
 }
 

@@ -46,3 +46,31 @@ export const editCustomerFormSchema = z.object({
   isAdmin: z.string(),
   isBanned: z.string(),
 });
+
+export const addReviewFormSchema = z.object({
+  comfort_rating: z
+    .number()
+    .int()
+    .min(1, "Select at least 1 star.")
+    .max(5, "Rating cannot exceed 5 stars."),
+
+  location_rating: z
+    .number()
+    .int()
+    .min(1, "Select at least 1 star.")
+    .max(5, "Rating cannot exceed 5 stars."),
+
+  service_rating: z
+    .number()
+    .int()
+    .min(1, "Select at least 1 star.")
+    .max(5, "Rating cannot exceed 5 stars."),
+
+  staff_rating: z
+    .number()
+    .int()
+    .min(1, "Select at least 1 star.")
+    .max(5, "Rating cannot exceed 5 stars."),
+
+  comment: z.string().min(1, "Comment cannot be empty."),
+});

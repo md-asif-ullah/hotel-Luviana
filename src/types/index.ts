@@ -1,3 +1,35 @@
+export interface ReviewTypes {
+  name: string;
+  comment: string;
+  bookingId: string;
+  comfort_rating: number;
+  location_rating: number;
+  service_rating: number;
+  staff_rating: number;
+  createdAt: string;
+}
+
+export interface RoomTypes {
+  _id: string;
+  roomName: string;
+  categories: string;
+  adults: number;
+  view: string;
+  size: number;
+  bedType: string;
+  amenities: string;
+  children: number;
+  description: string;
+  price: number;
+  quantity: number;
+  images: string[];
+}
+
+export interface RoomDataTypes {
+  roomDetails: RoomTypes;
+  reviews: ReviewTypes[];
+}
+
 export interface ApiDataTypes {
   _id: string;
   roomName: string;

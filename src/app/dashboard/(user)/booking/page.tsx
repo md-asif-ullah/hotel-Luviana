@@ -1,17 +1,21 @@
 "use client";
 
+import GetUserReviews from "@/components/GetUserReviews";
 import { useAuth } from "@/components/hooks/useAuth";
 import PageLoading from "@/components/PageLoading";
+import AddReview from "@/components/Room/AddReview";
 import { cn } from "@/lib/utils";
 import { IGetBookingTypes } from "@/types";
 import axios from "axios";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { boolean } from "zod";
 
 function Booking() {
   const [data, setData] = useState<IGetBookingTypes[] | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const { user } = useAuth();
+  const userReviews = GetUserReviews();
 
   useEffect(() => {
     const fetchBooking = async () => {
@@ -50,27 +54,41 @@ function Booking() {
       {data.map((booking: IGetBookingTypes) => (
         <div
           key={booking._id}
-          className="bg-gray-50 p-6 rounded-lg shadow-lg space-y-6 transition-all hover:shadow-xl"
+          className="bg-gray-50 p-6 rounded-lg shadow-lg space-y-6 transition-all"
         >
           <h1 className="md:text-2xl text-xl font-bold text-black">
             Booking ID:
-            <span className="text-[#f58220] ml-2">{booking.bookingId}</span>
+            <span className="text-[#0a2370] ml-2">{booking.bookingId}</span>
           </h1>
 
-          <button
-            className={cn("text-lg px-2 py-1 border inline-block mb-4 ", {
-              "text-yellow-500 border-yellow-500":
-                booking.bookingStatus === "pending",
-              "text-blue-500 border-blue-500":
-                booking.bookingStatus === "confirmed",
-              "text-red-500 border-red-500":
-                booking.bookingStatus === "cancelled",
-              "text-green-500 border-green-500":
-                booking.bookingStatus === "completed",
-            })}
-          >
-            {booking.bookingStatus}
-          </button>
+          <div className="flex md:space-x-10 space-x-2">
+            <button
+              className={cn(
+                "text-lg px-2 py-1 border inline-block mb-4 rounded-md",
+                {
+                  "text-yellow-500 border-yellow-500":
+                    booking.bookingStatus === "pending",
+                  "text-blue-500 border-blue-500":
+                    booking.bookingStatus === "confirmed",
+                  "text-red-500 border-red-500":
+                    booking.bookingStatus === "cancelled",
+                  "text-green-500 border-green-500":
+                    booking.bookingStatus === "completed",
+                }
+              )}
+            >
+              {booking.bookingStatus}
+            </button>
+
+            {booking.bookingStatus === "completed" &&
+              (userReviews?.some(
+                (review) => review.bookingId === booking._id
+              ) ? (
+                ""
+              ) : (
+                <AddReview roomId={booking.roomId} bookingId={booking._id} />
+              ))}
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
             <div className="flex items-center space-x-4">
