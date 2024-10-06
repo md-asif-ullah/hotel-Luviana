@@ -13,11 +13,15 @@ export async function middleware(request: NextRequest) {
   const refreshToken = request.cookies.get("refresh_token")?.value;
   const { pathname } = request.nextUrl;
 
+  let isAdmin = false;
+
   if (!token && refreshToken) {
     try {
       // Verify the refresh token
-      const secret = new TextEncoder().encode(process.env.JWT_REFRESH_SECRET);
-      const { payload } = (await jwtVerify(refreshToken, secret)) as {
+      const refreshSecret = new TextEncoder().encode(
+        process.env.JWT_REFRESH_SECRET
+      );
+      const { payload } = (await jwtVerify(refreshToken, refreshSecret)) as {
         payload: JwtPayload;
       };
 
@@ -25,33 +29,34 @@ export async function middleware(request: NextRequest) {
       const newAccessToken = await new SignJWT({ user: payload.user })
         .setProtectedHeader({ alg: "HS256" })
         .setExpirationTime("1h")
-        .sign(new TextEncoder().encode(process.env.JWT_REFRESH_SECRET));
+        .sign(new TextEncoder().encode(process.env.JWT_ACCESS_SECRET));
 
       // Set the new access token in the response cookies
       const response = NextResponse.next();
       response.cookies.set("access_token", newAccessToken, {
         httpOnly: true,
         path: "/",
-        maxAge: 60 * 60 * 24 * 1,
+        maxAge: 60 * 60, // 1 hour
       });
 
+      isAdmin = payload?.user?.isAdmin || false; // Extract isAdmin
       return response;
     } catch (error) {
       return NextResponse.redirect(new URL("/login", request.url));
     }
   }
 
-  let isAdmin;
-
   if (token) {
     try {
-      // Verify the token using jose
-      const secret = new TextEncoder().encode(process.env.JWT_ACCESS_SECRET);
-      const { payload } = (await jwtVerify(token, secret)) as {
+      // Verify the access token
+      const accessSecret = new TextEncoder().encode(
+        process.env.JWT_ACCESS_SECRET
+      );
+      const { payload } = (await jwtVerify(token, accessSecret)) as {
         payload: JwtPayload;
       };
 
-      isAdmin = payload?.user?.isAdmin;
+      isAdmin = payload?.user?.isAdmin || false;
     } catch (error) {
       return NextResponse.redirect(new URL("/login", request.url));
     }
