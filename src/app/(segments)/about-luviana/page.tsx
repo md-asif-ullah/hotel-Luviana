@@ -4,8 +4,20 @@ import Image from "next/image";
 import { FaWifi } from "react-icons/fa";
 import { MdFreeBreakfast, MdRoomService } from "react-icons/md";
 
-function page() {
-  const founderImages = [
+interface Founder {
+  name: string;
+  position: string;
+  src: string;
+}
+
+interface Services {
+  title: string;
+  description: string;
+  icon: JSX.Element;
+}
+
+function AboutLuviana() {
+  const founders: Founder[] = [
     {
       name: "Niamh Shea",
       position: "Co-founder and Chief Executive",
@@ -25,6 +37,27 @@ function page() {
       name: "Denis Schultz",
       position: "Co-Founder, Chief Strategy Officer",
       src: "team-3-1024x1024.jpg",
+    },
+  ];
+
+  const services: Services[] = [
+    {
+      title: "Breakfast",
+      description:
+        "Breakfast is served in the lounge or on the terrace. The delicious smell of coffee and freshly baked croissants will make your morning even more enjoyable.",
+      icon: <MdFreeBreakfast />,
+    },
+    {
+      title: "Free Wi-Fi",
+      description:
+        "Free Wi-Fi is available throughout the hotel. Stay connected with your loved ones and share your impressions of the day.",
+      icon: <FaWifi />,
+    },
+    {
+      title: "Room Service",
+      description:
+        "Room service is available 24 hours a day. Enjoy your favorite dishes and drinks in the comfort of your room.",
+      icon: <MdRoomService />,
     },
   ];
 
@@ -75,48 +108,18 @@ function page() {
         <div className="mx-5 md:mx-10 xl:mx-20 mt-20">
           <Header header="OUR SERVICES" title="What We Offer" />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-10 xl:gap-20 mt-10">
-            {/* Breakfast */}
-            <div className="flex items-start space-x-5 p-5 border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-              <i className="text-4xl text-primary">
-                <MdFreeBreakfast />
-              </i>
-              <div>
-                <h3 className="text-xl font-semibold mb-2">Breakfast</h3>
-                <p className="text-gray-500">
-                  Breakfast is served in the lounge or on the terrace. The
-                  delicious smell of coffee and freshly baked croissants will
-                  make your morning even more enjoyable.
-                </p>
+            {services.map((service) => (
+              <div
+                key={service.title}
+                className="flex flex-col items-center space-y-5"
+              >
+                <div className="p-3 text-2xl rounded-full bg-[#0a2370] text-white">
+                  {service.icon}
+                </div>
+                <h3 className="text-xl font-bold">{service.title}</h3>
+                <p className="text-[#5f6060]">{service.description}</p>
               </div>
-            </div>
-
-            {/* Free Wi-Fi */}
-            <div className="flex items-start space-x-5 p-5 border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-              <i className="text-4xl text-primary">
-                <FaWifi />
-              </i>
-              <div>
-                <h3 className="text-xl font-semibold mb-2">Free Wi-Fi</h3>
-                <p className="text-gray-500">
-                  Free Wi-Fi is available throughout the hotel. Stay connected
-                  with your loved ones and share your impressions of the day.
-                </p>
-              </div>
-            </div>
-
-            {/* Room Service */}
-            <div className="flex items-start space-x-5 p-5 border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-              <i className="text-4xl text-primary">
-                <MdRoomService />
-              </i>
-              <div>
-                <h3 className="text-xl font-semibold mb-2">Room Service</h3>
-                <p className="text-gray-500">
-                  Room service is available 24 hours a day. Enjoy your favorite
-                  dishes and drinks in the comfort of your room.
-                </p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -155,7 +158,7 @@ function page() {
             headerStyle="text-lg"
           />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-10 xl:gap-20 mt-10 md:mt-20">
-            {founderImages.map((founder) => (
+            {founders.map((founder) => (
               <div
                 key={founder.name}
                 className="flex flex-col items-center space-y-5"
@@ -178,4 +181,4 @@ function page() {
   );
 }
 
-export default page;
+export default AboutLuviana;
