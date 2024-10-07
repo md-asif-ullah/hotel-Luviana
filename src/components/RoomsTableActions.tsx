@@ -46,7 +46,7 @@ function RoomsTableActions({ id }: { id: string }) {
           <FaPencil className="w-5 h-5" />
         </button>
       </Link>
-      <Link href={`/dashboard/rooms/room-details/${id}`}>
+      <Link href={`/dashboard/rooms/${id}`}>
         <button className="text-gray-600 hover:text-gray-800 transition">
           <IoEyeOutline className="w-5 h-5" />
         </button>
