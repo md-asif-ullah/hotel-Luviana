@@ -20,6 +20,7 @@ import {
 import { Button } from "../ui/button";
 import { useToast } from "../ui/use-toast";
 import { addReviewFormSchema } from "@/lib/zodValidation";
+import { useRouter } from "next/navigation";
 
 type AddReviewProps = {
   roomId: string;
@@ -29,6 +30,7 @@ type AddReviewProps = {
 const AddReview = ({ roomId, bookingId }: AddReviewProps) => {
   const { user } = useAuth();
   const { toast } = useToast();
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof addReviewFormSchema>>({
     resolver: zodResolver(addReviewFormSchema),
@@ -57,6 +59,8 @@ const AddReview = ({ roomId, bookingId }: AddReviewProps) => {
           description: "Review added successfully",
         });
       }
+
+      router.push(`/`);
     } catch (error: any) {
       toast({
         variant: "destructive",

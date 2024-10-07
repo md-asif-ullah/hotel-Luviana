@@ -1,5 +1,6 @@
 "use client";
 
+import ErrorPage from "@/components/ErrorPage";
 import GetUserReviews from "@/components/GetUserReviews";
 import { useAuth } from "@/components/hooks/useAuth";
 import PageLoading from "@/components/PageLoading";
@@ -8,8 +9,7 @@ import { cn } from "@/lib/utils";
 import { IGetBookingTypes } from "@/types";
 import axios from "axios";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { boolean } from "zod";
+import { useCallback, useEffect, useState } from "react";
 
 function Booking() {
   const [data, setData] = useState<IGetBookingTypes[] | null>(null);
@@ -17,36 +17,33 @@ function Booking() {
   const { user } = useAuth();
   const userReviews = GetUserReviews();
 
-  useEffect(() => {
-    const fetchBooking = async () => {
-      setLoading(true);
-      try {
-        const res = await axios.get(`/api/user-booking/${user?._id}`);
+  const fetchBooking = useCallback(async () => {
+    setLoading(true);
+    try {
+      const res = await axios.get(`/api/user-booking/${user?._id}`);
 
-        if (res.data.success) {
-          setData(res.data.payload);
-        }
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
+      if (res.data.success) {
+        setData(res.data.payload);
       }
-    };
-    if (user?._id) {
-      fetchBooking();
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
     }
   }, [user]);
 
+  useEffect(() => {
+    if (user?._id) {
+      fetchBooking();
+    }
+  }, [user, fetchBooking]);
+
   if (loading) {
-    return <PageLoading isLoading={loading} error="" />;
+    return <PageLoading isLoading={loading} />;
   }
 
   if (!data) {
-    return (
-      <div className="min-h-screen h-full bg-white p-6 md:p-8 flex items-center justify-center">
-        <h1 className="text-2xl font-bold text-black">No Booking Found</h1>
-      </div>
-    );
+    return <ErrorPage text="No Booking Found" />;
   }
 
   return (

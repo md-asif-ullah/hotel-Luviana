@@ -1,8 +1,8 @@
 import ErrorPage from "@/components/ErrorPage";
-import GetRooms from "@/components/GetRooms";
 import Header from "@/components/Header";
 import MainHeader from "@/components/MainHeader";
 import PrimaryButton from "@/components/PrimaryButton";
+import GetRooms from "@/components/Room/GetRooms";
 import SecondaryButton from "@/components/SecondaryButton";
 import SlideImage from "@/components/SlideImage";
 import { ApiDataTypes } from "@/types";

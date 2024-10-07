@@ -2,25 +2,27 @@
 
 import { ReviewTypes } from "@/types";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 function GetUserReviews() {
   const [reviewData, setReviewData] = useState<ReviewTypes[] | null>(null);
 
-  useEffect(() => {
-    const fetchReview = async () => {
-      try {
-        const res = await axios.get(`/api/rooms/reviews`);
+  const fetchReview = useCallback(async () => {
+    try {
+      const res = await axios.get(`/api/rooms/reviews`);
 
-        if (res.data.success) {
-          setReviewData(res.data.payload);
-        }
-      } catch (error: any) {
-        console.error(error);
+      if (res.data.success) {
+        setReviewData(res.data.payload);
       }
-    };
-    fetchReview();
+    } catch (error: any) {
+      setReviewData(null);
+      throw new Error(error.message);
+    }
   }, []);
+
+  useEffect(() => {
+    fetchReview();
+  }, [fetchReview]);
   return reviewData;
 }
 

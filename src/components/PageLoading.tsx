@@ -3,7 +3,7 @@ function PageLoading({
   error,
 }: {
   isLoading: boolean;
-  error: string;
+  error?: string;
 }) {
   return (
     <div className="h-screen w-full pt-20">
