@@ -1,56 +1,14 @@
-"use client";
-
-import PageLoading from "@/components/PageLoading";
-import { IGetBookingTypes } from "@/types";
+import { GetBooking } from "@/components/booking-list/GetBooking";
+import ErrorPage from "@/components/ErrorPage";
+import SecondaryButton from "@/components/SecondaryButton";
 import Image from "next/image";
 import Link from "next/link";
-import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
 
-const BookingDetails = () => {
-  const [isLoading, setLoading] = useState<boolean>(true);
-  const [isError, setError] = useState<string>("");
-  const [booking, setBooking] = useState<IGetBookingTypes | null>(null);
-
-  const { id } = useParams();
-
-  useEffect(() => {
-    if (id) {
-      const fetchBooking = async () => {
-        try {
-          setLoading(true);
-          const response = await fetch(`/api/booking/${id}`);
-          const data = await response.json();
-
-          if (data.success) {
-            setBooking(data.payload);
-          }
-          if (!data.success) {
-            setError(data.message);
-          }
-        } catch (error: any) {
-          setError(error.message);
-        } finally {
-          setLoading(false);
-          setError("");
-        }
-      };
-      fetchBooking();
-    }
-  }, [id]);
-
-  if (isLoading || isError) {
-    return <PageLoading isLoading={isLoading} error={isError} />;
-  }
+const BookingDetails = async ({ params }: { params: { id: string } }) => {
+  const booking = await GetBooking(params.id);
 
   if (!booking) {
-    return (
-      <div className="max-w-4xl mx-auto mt-10 p-6 bg-white rounded-lg">
-        <h1 className="text-3xl font-extrabold text-gray-800 text-center">
-          No booking found
-        </h1>
-      </div>
-    );
+    return <ErrorPage text="Booking not found" />;
   }
 
   return (
@@ -169,9 +127,10 @@ const BookingDetails = () => {
       {/* Back Button */}
       <div className="mt-6 text-right">
         <Link href="/dashboard/booking-list">
-          <button className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-all duration-300">
-            Back to Booking History
-          </button>
+          <SecondaryButton
+            text="Back"
+            className="rounded-md md:px-5 md:py-1 px-5 py-3 bg-[#0a2370] hover:bg-primary2 "
+          />
         </Link>
       </div>
     </div>

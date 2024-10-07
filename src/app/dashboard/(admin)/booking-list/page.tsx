@@ -5,13 +5,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import BookingInfo from "@/components/bookings/BookingInfo";
-import GetBooking from "@/components/bookings/GetBooking";
 import BookingCardSection from "@/components/BookingCardSection";
 import { IGetBookingTypes } from "@/types";
+import BookingInfo from "@/components/booking-list/BookingInfo";
+import { GetBookings } from "@/components/booking-list/GetBooking";
 
 async function BookingsList() {
-  const data = await GetBooking();
+  const data = await GetBookings();
 
   if (!data) {
     return (
