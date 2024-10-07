@@ -1,3 +1,4 @@
+import ErrorPage from "@/components/ErrorPage";
 import GetRooms from "@/components/GetRooms";
 import Header from "@/components/Header";
 import MainHeader from "@/components/MainHeader";
@@ -14,6 +15,10 @@ import { SlSizeFullscreen } from "react-icons/sl";
 async function Rooms() {
   const rooms = await GetRooms();
 
+  if (!rooms) {
+    return <ErrorPage text="Error fetching data" />;
+  }
+
   return (
     <main className="min-h-screen w-full h-full bg-white">
       <section className="mt-28 mb-20 px-4 md:px-10 xl:px-20 lg:px-12">
@@ -24,11 +29,6 @@ async function Rooms() {
 
         {/* handle error fetching data */}
 
-        {rooms === null && (
-          <div className="flex justify-center items-center h-screen">
-            <p className="text-2xl text-red-500">Error fetching data</p>
-          </div>
-        )}
         <div className="pt-10">
           {rooms?.payload?.map((room: ApiDataTypes) => (
             <div

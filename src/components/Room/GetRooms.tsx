@@ -1,14 +1,16 @@
 async function GetRooms() {
   try {
-    const res = await fetch("http://localhost:3000/api/rooms", {
-      method: "GET",
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+    const res = await fetch(`${apiUrl}/api/rooms`, {
       cache: "no-cache",
     });
     if (!res.ok) {
       throw new Error("Error fetching data");
     }
     const data = await res.json();
-    return data;
+    if (data.success) {
+      return data;
+    }
   } catch (error: any) {
     console.log(error.message);
     return null;

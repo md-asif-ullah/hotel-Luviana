@@ -9,6 +9,14 @@ export async function POST(req: Request) {
 
     const review = await Review.create(reviewData);
 
+    if (!review) {
+      return errorResponse({
+        status: 400,
+        success: false,
+        message: "Review not created",
+      });
+    }
+
     return successResponse({
       status: 200,
       success: true,

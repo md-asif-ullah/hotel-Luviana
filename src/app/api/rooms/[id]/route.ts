@@ -25,7 +25,6 @@ export async function GET(
           as: "reviews",
         },
       },
-
       {
         $unwind: {
           path: "$reviews",
@@ -40,14 +39,12 @@ export async function GET(
           as: "reviewUser",
         },
       },
-
       {
         $unwind: {
           path: "$reviewUser",
           preserveNullAndEmptyArrays: true,
         },
       },
-
       {
         $group: {
           _id: "$_id",
@@ -70,13 +67,30 @@ export async function GET(
           },
           reviews: {
             $push: {
-              name: "$reviewUser.name",
-              comment: "$reviews.comment",
-              comfort_rating: "$reviews.comfort_rating",
-              location_rating: "$reviews.location_rating",
-              service_rating: "$reviews.service_rating",
-              staff_rating: "$reviews.staff_rating",
-              createdAt: "$reviews.createdAt",
+              $cond: [
+                { $gt: ["$reviews", null] },
+                {
+                  name: "$reviewUser.name",
+                  comment: "$reviews.comment",
+                  comfort_rating: "$reviews.comfort_rating",
+                  location_rating: "$reviews.location_rating",
+                  service_rating: "$reviews.service_rating",
+                  staff_rating: "$reviews.staff_rating",
+                  createdAt: "$reviews.createdAt",
+                },
+                null,
+              ],
+            },
+          },
+        },
+      },
+      {
+        $addFields: {
+          reviews: {
+            $filter: {
+              input: "$reviews",
+              as: "review",
+              cond: { $ne: ["$$review", null] },
             },
           },
         },

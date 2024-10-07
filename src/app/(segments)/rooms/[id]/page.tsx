@@ -1,52 +1,19 @@
-"use client";
-
-import Loading from "@/components/Loading";
 import MainHeader from "@/components/MainHeader";
-import { RoomDataTypes } from "@/types";
 import Image from "next/image";
-import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
 import RoomDetails from "@/components/Room/RoomDetails";
 import BookingSection from "@/components/Room/BookingSection";
 import ShowReviews from "@/components/Room/ShowReviews";
+import GetRoom from "@/components/Room/GetRoom";
+import ErrorPage from "@/components/ErrorPage";
 
-function Room() {
-  const [data, setData] = useState<RoomDataTypes | null>(null);
-  const [isLoading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string>("");
-
-  const { id } = useParams<{ id: string }>();
-
-  useEffect(() => {
-    async function fetchRoom() {
-      try {
-        const res = await fetch(`/api/rooms/${id}`);
-        const data = await res.json();
-        if (data.success) {
-          setData(data.payload);
-          setLoading(false);
-        }
-      } catch (error: any) {
-        setError("room dose not exist with this id");
-        setLoading(false);
-      }
-    }
-    fetchRoom();
-  }, [id]);
-
-  if (isLoading) {
-    return (
-      <div className="h-screen w-full pt-20">
-        <Loading />
-      </div>
-    );
-  }
+async function Room({ params }: { params: { id: string } }) {
+  const data = await GetRoom({ params });
 
   if (!data) {
-    return <p>{error}</p>;
+    return <ErrorPage text="Error fetching data" />;
   }
 
-  const { images, roomName, description } = data?.roomDetails;
+  const { images, roomName, description } = data.roomDetails;
 
   return (
     <main className="w-full min-h-screen bg-white h-full px-5 md:px-10 xl:px-20 pb-10 md:pb-20">
@@ -108,7 +75,7 @@ function Room() {
       </section>
 
       {/* show room reviews */}
-      {data?.reviews.length > 1 ? (
+      {data?.reviews.length > 0 ? (
         <ShowReviews reviews={data?.reviews} />
       ) : (
         <p className="text-center text-lg text-gray-500 mt-10">

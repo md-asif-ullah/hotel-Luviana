@@ -1,4 +1,4 @@
-import GetRooms from "@/components/GetRooms";
+import GetRooms from "@/components/Room/GetRooms";
 import RoomsTableBody from "@/components/RoomsTableBody";
 import {
   Table,

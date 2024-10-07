@@ -3,7 +3,7 @@ import Header from "../Header";
 import { ApiDataTypes } from "@/types";
 import SecondaryButton from "../SecondaryButton";
 import Link from "next/link";
-import GetRooms from "../GetRooms";
+import GetRooms from "../Room/GetRooms";
 
 async function RoomSection() {
   const rooms = await GetRooms();

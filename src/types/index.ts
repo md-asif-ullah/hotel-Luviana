@@ -30,6 +30,13 @@ export interface RoomDataTypes {
   reviews: ReviewTypes[];
 }
 
+export interface RoomResponseTypes {
+  status: number;
+  success: boolean;
+  message: string;
+  payload: RoomDataTypes;
+}
+
 export interface ApiDataTypes {
   _id: string;
   roomName: string;
