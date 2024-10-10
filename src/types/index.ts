@@ -123,3 +123,9 @@ export interface IGetBookingTypes {
   totalPrice: number;
   createdAt: string;
 }
+
+export interface IPaginationTypes {
+  totalPages: number;
+  prevoiusPage: number | null;
+  nextPage: number | null;
+}

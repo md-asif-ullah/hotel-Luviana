@@ -3,7 +3,7 @@
 import ErrorPage from "@/components/ErrorPage";
 import GetUserReviews from "@/components/GetUserReviews";
 import { useAuth } from "@/components/hooks/useAuth";
-import PageLoading from "@/components/PageLoading";
+import PageLoadingAnimation from "@/components/PageLoadingAnimation";
 import AddReview from "@/components/Room/AddReview";
 import { cn } from "@/lib/utils";
 import { IGetBookingTypes } from "@/types";
@@ -39,7 +39,7 @@ function Booking() {
   }, [user, fetchBooking]);
 
   if (loading) {
-    return <PageLoading isLoading={loading} />;
+    return <PageLoadingAnimation />;
   }
 
   if (!data) {
