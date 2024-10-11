@@ -16,13 +16,18 @@ import useDashboardSegments from "./hooks/useDashboardSegments";
 import { CgProfile } from "react-icons/cg";
 import axios from "axios";
 import { useAuth } from "./hooks/useAuth";
+import { useRouter } from "next/navigation";
 
 function UserAccount({ isRoot }: { isRoot?: boolean }) {
   const { toast } = useToast();
+  const router = useRouter();
   const dashboardSegments = useDashboardSegments();
-  const { setUser } = useAuth();
+  const { setUser, user } = useAuth();
 
   const handleLogOut = async () => {
+    if (!user) {
+      return router.push("/login");
+    }
     try {
       const res = await axios.get("/api/logOut");
       if (res.data.success) {
