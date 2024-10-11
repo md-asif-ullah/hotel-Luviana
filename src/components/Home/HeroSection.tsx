@@ -59,7 +59,7 @@ const HeroSection = () => {
 
   return (
     <section
-      className="h-full min-h-screen"
+      className="h-full md:min-h-screen"
       style={{
         backgroundImage: `url(${slideInfo.imgUrl})`,
         backgroundSize: "cover",
