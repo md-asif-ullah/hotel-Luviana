@@ -163,7 +163,7 @@ function RegisterForm() {
           disabled={loading}
           loading={loading}
           type="submit"
-          text="Send Message"
+          text="Register"
           className="w-full"
         />
       </form>
