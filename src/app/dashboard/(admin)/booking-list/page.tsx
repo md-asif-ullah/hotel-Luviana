@@ -107,7 +107,7 @@ function BookingsList() {
             <UpdateBookingStatus
               id={_id}
               bookingStatus={bookingStatus}
-              getCustomers={getCustomers}
+              getBookings={getBookings}
             />
             <Link
               href={`/dashboard/booking-list/${_id}`}
@@ -123,7 +123,7 @@ function BookingsList() {
     },
   ];
 
-  const getCustomers = useCallback(async () => {
+  const getBookings = useCallback(async () => {
     setLoading(true);
     try {
       const res = await axios.get(
@@ -143,13 +143,11 @@ function BookingsList() {
 
   useEffect(() => {
     const debounceSearch = setTimeout(() => {
-      getCustomers();
+      getBookings();
     }, 1000);
 
     return () => clearTimeout(debounceSearch);
-  }, [search, page, getCustomers]);
-
-  console.log(data);
+  }, [search, page, getBookings]);
 
   const table = useReactTable({
     data: data?.bookingData ?? [],

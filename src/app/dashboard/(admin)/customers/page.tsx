@@ -32,12 +32,12 @@ import PageLoadingAnimation from "@/components/PageLoadingAnimation";
 import DataTable from "@/components/DataTable";
 import ErrorPage from "@/components/ErrorPage";
 
-type IUsersResponseTypes = {
+interface IUsersResponseTypes {
   users: IUserType[];
   pagination: IPaginationTypes;
-};
+}
 
-export const columns: ColumnDef<IUserType>[] = [
+const columns: ColumnDef<IUserType>[] = [
   {
     accessorKey: "createdAt",
     header: () => <div>Create</div>,
@@ -70,18 +70,18 @@ export const columns: ColumnDef<IUserType>[] = [
     },
     cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
   },
-  {
-    accessorKey: "phoneNumber",
-    header: "Phone",
-    cell: ({ row }) => {
-      const phoneNumber = row.getValue<string>("phoneNumber");
-      return (
-        <div className="capitalize">
-          {phoneNumber ? phoneNumber : "No phone number"}
-        </div>
-      );
-    },
-  },
+  // {
+  //   accessorKey: "phoneNumber",
+  //   header: "Phone",
+  //   cell: ({ row }) => {
+  //     const phoneNumber = row.getValue<string>("phoneNumber");
+  //     return (
+  //       <div className="capitalize">
+  //         {phoneNumber ? phoneNumber : "No phone number"}
+  //       </div>
+  //     );
+  //   },
+  // },
 
   {
     accessorKey: "isAdmin",
@@ -148,7 +148,7 @@ export const columns: ColumnDef<IUserType>[] = [
   },
 ];
 
-export function Customers() {
+function Customers() {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -160,6 +160,7 @@ export function Customers() {
   const [search, setSearch] = useState<string>("");
   const [data, setData] = useState<IUsersResponseTypes | undefined>(undefined);
   const [isLoading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>("");
 
   const getCustomers = useCallback(async () => {
     setLoading(true);
@@ -170,17 +171,19 @@ export function Customers() {
 
       if (res.data.success) {
         setData(res.data.payload);
-        setLoading(false);
       }
     } catch (error: any) {
+      setError(error.response.data.message);
+    } finally {
       setLoading(false);
+      setError("");
     }
   }, [page, search]);
 
   useEffect(() => {
     const debounceSearch = setTimeout(() => {
       getCustomers();
-    }, 500);
+    }, 1000);
 
     return () => clearTimeout(debounceSearch);
   }, [search, page, getCustomers]);
@@ -208,7 +211,7 @@ export function Customers() {
   }
 
   if (!data) {
-    return <ErrorPage text="Something went wrong" />;
+    return <ErrorPage text={error} />;
   }
 
   return (

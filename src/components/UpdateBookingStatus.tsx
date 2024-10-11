@@ -28,13 +28,13 @@ const formSchema = z.object({
 interface propstype {
   bookingStatus: string;
   id: string;
-  getCustomers: () => Promise<void>;
+  getBookings: () => Promise<void>;
 }
 
 export function UpdateBookingStatus({
   bookingStatus,
   id,
-  getCustomers,
+  getBookings,
 }: propstype) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -65,7 +65,7 @@ export function UpdateBookingStatus({
           description: "Booking status updated successfully",
         });
         form.reset();
-        getCustomers();
+        getBookings();
       }
       if (!res.data.success) {
         toast({
