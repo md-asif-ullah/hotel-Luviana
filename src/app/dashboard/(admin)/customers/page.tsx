@@ -212,15 +212,19 @@ export function Customers() {
   }
 
   return (
-    <DataTable
-      header="Customers List"
-      table={table}
-      page={page}
-      setPage={setPage}
-      search={search}
-      setSearch={setSearch}
-      paginationData={data?.pagination}
-    />
+    <div className="pb-20 min-h-screen pt-10 w-full h-full bg-white px-6">
+      <h2 className="text-start font-semibold text-2xl md:text-3xl">
+        Customers List
+      </h2>
+      <DataTable
+        table={table}
+        page={page}
+        setPage={setPage}
+        search={search}
+        setSearch={setSearch}
+        paginationData={data?.pagination}
+      />
+    </div>
   );
 }
 

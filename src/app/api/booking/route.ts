@@ -67,12 +67,32 @@ export async function POST(req: Request) {
   }
 }
 
-export async function GET() {
+export async function GET(request: Request) {
   await connectToDB();
-  try {
-    const newBookingData = await BookingModel.find();
 
-    if (!newBookingData) {
+  const url = new URL(request.url);
+  const searchParams = new URLSearchParams(url.search);
+
+  const search = searchParams.get("search") || "";
+  const page = searchParams.get("page") || 1;
+  const limit = searchParams.get("limit") || 10;
+
+  const newPage = parseInt(page as string);
+  const newLimit = parseInt(limit as string);
+
+  const searchRegex = new RegExp(".*" + search + ".*", "i");
+
+  const filter = {
+    $or: [{ name: { $regex: searchRegex } }],
+  };
+  try {
+    const bookingData = await BookingModel.find(filter)
+      .limit(newLimit * 1)
+      .skip((newPage - 1) * newLimit);
+
+    const totalBookingData = await BookingModel.countDocuments();
+
+    if (!bookingData) {
       return errorResponse({
         status: 400,
         success: false,
@@ -84,7 +104,17 @@ export async function GET() {
       status: 200,
       success: true,
       message: "Booking found",
-      payload: newBookingData,
+      payload: {
+        bookingData,
+        pagination: {
+          totalPages: Math.ceil(totalBookingData / newLimit),
+          prevoiusPage: newPage - 1 > 0 ? newPage - 1 : null,
+          nextPage:
+            newPage + 1 <= Math.ceil(totalBookingData / newLimit)
+              ? newPage + 1
+              : null,
+        },
+      },
     });
   } catch (error: any) {
     return errorResponse({
