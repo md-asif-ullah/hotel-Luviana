@@ -57,7 +57,7 @@ export interface ApiResponseTypes {
   status: number;
   success: boolean;
   message: string;
-  payload: ApiDataTypes[];
+  payload: { rooms: ApiDataTypes[]; pagination: IPaginationTypes };
 }
 
 export interface IUserType {

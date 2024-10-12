@@ -1,15 +1,17 @@
+import { ApiResponseTypes } from "@/types";
+
 async function GetRooms() {
   try {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL;
     const res = await fetch(`${apiUrl}/api/rooms`, {
-      cache: "no-cache",
+      next: { revalidate: 86400 },
     });
     if (!res.ok) {
       throw new Error("Error fetching data");
     }
-    const data = await res.json();
+    const data: ApiResponseTypes = await res.json();
     if (data.success) {
-      return data;
+      return data.payload;
     }
   } catch (error: any) {
     console.log(error.message);

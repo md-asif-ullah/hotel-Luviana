@@ -1,24 +1,85 @@
+"use client";
+
 import ErrorPage from "@/components/ErrorPage";
 import Header from "@/components/Header";
 import MainHeader from "@/components/MainHeader";
 import PrimaryButton from "@/components/PrimaryButton";
-import GetRooms from "@/components/Room/GetRooms";
 import SecondaryButton from "@/components/SecondaryButton";
 import SlideImage from "@/components/SlideImage";
-import { ApiDataTypes } from "@/types";
+import { ApiDataTypes, IPaginationTypes, RoomTypes } from "@/types";
 import Link from "next/link";
 import { FaChild, FaEye } from "react-icons/fa";
 import { IoIosStar, IoMdBookmark } from "react-icons/io";
 import { IoBedOutline, IoMan } from "react-icons/io5";
 import { SlSizeFullscreen } from "react-icons/sl";
+import { useCallback, useEffect, useState } from "react";
+import axios from "axios";
+import PageLoadingAnimation from "@/components/PageLoadingAnimation";
+import { Button } from "@/components/ui/button";
 
-async function Rooms() {
-  const rooms = await GetRooms();
+interface IRoomResponseTypes {
+  rooms: RoomTypes[];
+  pagination: IPaginationTypes;
+}
 
-  if (!rooms) {
-    return <ErrorPage text="Error fetching data" />;
+function Rooms() {
+  const [page, setPage] = useState<number>(1);
+  const [data, setData] = useState<IRoomResponseTypes | undefined>(undefined);
+  const [isLoading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>("");
+
+  const getCustomers = useCallback(async () => {
+    setLoading(true);
+    try {
+      const res = await axios.get(`/api/rooms?page=${page}&limit=10`);
+
+      if (res.data.success) {
+        const newRooms = res.data.payload.rooms;
+        setData((prevData) => {
+          const existingRooms = prevData?.rooms || [];
+          const mergedRooms: RoomTypes[] = [
+            ...existingRooms,
+            ...newRooms.filter(
+              (newRoom: RoomTypes) =>
+                !existingRooms.some(
+                  (existingRoom: RoomTypes) => existingRoom._id === newRoom._id
+                )
+            ),
+          ];
+          return {
+            rooms: mergedRooms,
+            pagination: res.data.payload.pagination,
+          };
+        });
+      }
+    } catch (error: any) {
+      setError(error.response?.data?.message || "An error occurred");
+    } finally {
+      setLoading(false);
+    }
+  }, [page]);
+
+  useEffect(() => {
+    const debounceSearch = setTimeout(() => {
+      getCustomers();
+    }, 500);
+
+    return () => clearTimeout(debounceSearch);
+  }, [page, getCustomers]);
+
+  const handleLoadMore = () => {
+    if (data?.pagination?.nextPage) {
+      setPage((prev) => prev + 1);
+    }
+  };
+
+  if (isLoading && page === 1) {
+    return <PageLoadingAnimation />;
   }
 
+  if (!data && error) {
+    return <ErrorPage text={error} />;
+  }
   return (
     <main className="min-h-screen w-full h-full bg-white">
       <section className="mt-28 mb-20 px-4 md:px-10 xl:px-20 lg:px-12">
@@ -27,10 +88,8 @@ async function Rooms() {
           description="The hotel is arranged on three floors, without a lift. On the ground floor, apart from the reception, there is a comfortable lounge where you can sit and drink tea."
         />
 
-        {/* handle error fetching data */}
-
         <div className="pt-10">
-          {rooms?.payload?.map((room: ApiDataTypes) => (
+          {data?.rooms?.map((room: ApiDataTypes) => (
             <div
               key={room._id}
               className="h-full lg:grid lg:grid-cols-2 lg:gap-16 mt-16"
@@ -124,6 +183,17 @@ async function Rooms() {
             </div>
           ))}
         </div>
+
+        {data?.pagination?.nextPage && (
+          <div className="flex justify-center items-center mt-20">
+            <Button
+              className="bg-[#4a6fdd] hover:bg-[#0a2370] duration-500 md:w-1/4 md:py-3"
+              onClick={handleLoadMore}
+            >
+              Load More
+            </Button>
+          </div>
+        )}
       </section>
     </main>
   );

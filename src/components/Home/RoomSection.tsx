@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Header from "../Header";
-import { ApiDataTypes } from "@/types";
 import SecondaryButton from "../SecondaryButton";
 import Link from "next/link";
 import GetRooms from "../Room/GetRooms";
@@ -8,7 +7,7 @@ import GetRooms from "../Room/GetRooms";
 async function RoomSection() {
   const rooms = await GetRooms();
 
-  const firstthreeRooms = rooms?.payload?.slice(0, 3);
+  const firstthreeRooms = rooms?.rooms.slice(0, 3);
 
   return (
     <section className="min-h-screen h-full px-4 xl:px-20 md:px-10 bg-[#ffffff] pb-20">
@@ -34,7 +33,7 @@ async function RoomSection() {
       )}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-20 ">
-        {firstthreeRooms?.map((room: ApiDataTypes) => (
+        {firstthreeRooms?.map((room) => (
           <div
             key={room._id}
             className="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 cursor-pointer"

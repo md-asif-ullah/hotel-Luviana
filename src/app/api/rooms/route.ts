@@ -66,10 +66,29 @@ export async function POST(req: Request) {
 
 export async function GET(req: Request) {
   await connectToDB();
-  try {
-    const existingRooms = await Room.find();
 
-    if (!existingRooms) {
+  const url = new URL(req.url);
+  const searchParams = new URLSearchParams(url.search);
+
+  const search = searchParams.get("search") || "";
+  const page = Number(searchParams.get("page") || 1);
+  const limit = Number(searchParams.get("limit") || 10);
+
+  const searchRegex = new RegExp(".*" + search + ".*", "i");
+
+  const filter = {
+    $or: [{ roomName: { $regex: searchRegex } }],
+  };
+
+  try {
+    const rooms = await Room.find(filter)
+      .limit(limit)
+      .skip((page - 1) * limit);
+
+    // Count filtered documents
+    const totalRooms = await Room.countDocuments(filter);
+
+    if (!rooms.length) {
       return errorResponse({
         status: 404,
         success: false,
@@ -81,7 +100,14 @@ export async function GET(req: Request) {
       status: 200,
       success: true,
       message: "successfully",
-      payload: existingRooms,
+      payload: {
+        rooms,
+        pagination: {
+          totalPages: Math.ceil(totalRooms / limit),
+          previousPage: page - 1 > 0 ? page - 1 : null,
+          nextPage: page + 1 <= Math.ceil(totalRooms / limit) ? page + 1 : null,
+        },
+      },
     });
   } catch (error: any) {
     return errorResponse({
