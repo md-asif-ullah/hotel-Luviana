@@ -70,18 +70,18 @@ const columns: ColumnDef<IUserType>[] = [
     },
     cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
   },
-  // {
-  //   accessorKey: "phoneNumber",
-  //   header: "Phone",
-  //   cell: ({ row }) => {
-  //     const phoneNumber = row.getValue<string>("phoneNumber");
-  //     return (
-  //       <div className="capitalize">
-  //         {phoneNumber ? phoneNumber : "No phone number"}
-  //       </div>
-  //     );
-  //   },
-  // },
+  {
+    accessorKey: "phoneNumber",
+    header: "Phone",
+    cell: ({ row }) => {
+      const phoneNumber = row.getValue<string>("phoneNumber");
+      return (
+        <div className="capitalize">
+          {phoneNumber ? phoneNumber : "No phone number"}
+        </div>
+      );
+    },
+  },
 
   {
     accessorKey: "isAdmin",
