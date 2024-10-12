@@ -19,7 +19,6 @@ import CustomForm, { FormFieldTypes } from "./CustomForm";
 import { useEffect } from "react";
 import axios from "axios";
 import { useToast } from "./ui/use-toast";
-import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   bookingStatus: z.string(),
@@ -50,7 +49,6 @@ export function UpdateBookingStatus({
   }, [bookingStatus, form]);
 
   const { toast } = useToast();
-  const router = useRouter();
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {

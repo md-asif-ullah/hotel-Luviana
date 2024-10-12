@@ -38,6 +38,7 @@ function BookingsList() {
   const [error, setError] = useState<string>("");
 
   type IUsersResponseTypes = {
+    allBookingStatus: { bookingStatus: string }[];
     bookingData: IGetBookingTypes[];
     pagination: IPaginationTypes;
   };
@@ -95,7 +96,7 @@ function BookingsList() {
 
     {
       id: "actions",
-      header: "Actions",
+      header: () => <div className="text-center">Actions</div>,
       enableHiding: false,
       cell: ({ row }) => {
         <div className="capitalize text-center">{row.getValue("actions")}</div>;
@@ -178,10 +179,10 @@ function BookingsList() {
   return (
     <div className="pb-20 min-h-screen pt-10 w-full h-full bg-white px-6 space-y-7">
       <h2 className="text-start font-semibold text-2xl md:text-3xl">
-        Customers List
+        Bookings List
       </h2>
 
-      <BookingCardSection data={data.bookingData} />
+      <BookingCardSection bookingStatus={data.allBookingStatus} />
       <DataTable
         table={table}
         page={page}

@@ -91,6 +91,7 @@ export async function GET(request: Request) {
       .skip((newPage - 1) * newLimit);
 
     const totalBookingData = await BookingModel.countDocuments();
+    const allBookingStatus = await BookingModel.find({}, "bookingStatus");
 
     if (!bookingData) {
       return errorResponse({
@@ -99,12 +100,20 @@ export async function GET(request: Request) {
         message: "No booking found",
       });
     }
+    if (!allBookingStatus) {
+      return errorResponse({
+        status: 400,
+        success: false,
+        message: "No booking status found",
+      });
+    }
 
     return successResponse({
       status: 200,
       success: true,
       message: "Booking found",
       payload: {
+        allBookingStatus,
         bookingData,
         pagination: {
           totalPages: Math.ceil(totalBookingData / newLimit),

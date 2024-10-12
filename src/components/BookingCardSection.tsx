@@ -1,17 +1,19 @@
 import { GiConfirmed, GiSandsOfTime } from "react-icons/gi";
 import { ImCancelCircle } from "react-icons/im";
 import { BookingCard } from "@/components/BookingCard";
-import { IBookingType } from "@/types";
 
-function BookingCardSection({ data }: { data: IBookingType[] }) {
+type BookingCardProps = {
+  bookingStatus: { bookingStatus: string }[];
+};
+
+function BookingCardSection({ bookingStatus }: BookingCardProps) {
   return (
     <section className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
       {/* Pending bookings */}
       <BookingCard
         count={
-          data.filter(
-            (booking: IBookingType) => booking.bookingStatus === "pending"
-          ).length
+          bookingStatus.filter((status) => status.bookingStatus === "pending")
+            .length
         }
         label="Pending bookings"
         icon={<GiSandsOfTime />}
@@ -19,9 +21,8 @@ function BookingCardSection({ data }: { data: IBookingType[] }) {
       {/* Confirmed bookings */}
       <BookingCard
         count={
-          data.filter(
-            (booking: IBookingType) => booking.bookingStatus === "confirmed"
-          ).length
+          bookingStatus.filter((status) => status.bookingStatus === "confirmed")
+            .length
         }
         label="Confirmed bookings"
         icon={<GiConfirmed />}
@@ -29,9 +30,8 @@ function BookingCardSection({ data }: { data: IBookingType[] }) {
       {/* Cancelled bookings */}
       <BookingCard
         count={
-          data.filter(
-            (booking: IBookingType) => booking.bookingStatus === "cancelled"
-          ).length
+          bookingStatus.filter((status) => status.bookingStatus === "cancelled")
+            .length
         }
         label="Cancelled bookings"
         icon={<ImCancelCircle />}
@@ -39,9 +39,8 @@ function BookingCardSection({ data }: { data: IBookingType[] }) {
       {/* Completed bookings */}
       <BookingCard
         count={
-          data.filter(
-            (booking: IBookingType) => booking.bookingStatus === "completed"
-          ).length
+          bookingStatus.filter((status) => status.bookingStatus === "completed")
+            .length
         }
         label="Completed bookings"
         icon={<GiConfirmed />}
