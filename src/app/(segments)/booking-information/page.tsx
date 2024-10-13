@@ -43,6 +43,7 @@ function BookingInformation() {
   useEffect(() => {
     form.setValue("name", user?.name!);
     form.setValue("email", user?.email!);
+    form.setValue("phoneNumber", user?.phoneNumber!);
   }, [user, form]);
 
   async function onSubmit(

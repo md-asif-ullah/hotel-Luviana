@@ -3,6 +3,7 @@ import { TotalPriceAndTotalDays } from "@/helper/TotalPriceAndTotalDays";
 import connectToDB from "@/lib/ConnectToDB";
 import BookingModel from "@/models/BookingModel";
 import Room from "@/models/RoomModels";
+import User from "@/models/userModel";
 
 export async function POST(req: Request) {
   await connectToDB();
@@ -51,6 +52,12 @@ export async function POST(req: Request) {
         message: "Booking not created",
       });
     }
+
+    await User.findByIdAndUpdate(
+      data.userId,
+      { phoneNumber: data.phoneNumber },
+      { new: true }
+    );
 
     return successResponse({
       status: 200,
