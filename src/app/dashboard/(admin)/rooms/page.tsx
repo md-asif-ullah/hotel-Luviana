@@ -82,13 +82,6 @@ const columns: ColumnDef<RoomTypes>[] = [
   },
 
   {
-    accessorKey: "quantity",
-    header: "Quantity",
-    cell: ({ row }) => {
-      return <div>{row.getValue("quantity")}</div>;
-    },
-  },
-  {
     accessorKey: "adults",
     header: "Adults",
     cell: ({ row }) => {

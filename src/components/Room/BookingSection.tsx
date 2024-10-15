@@ -3,7 +3,7 @@
 import { addDays, differenceInDays, format, isBefore } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
 import { DateRange } from "react-day-picker";
-import { cn } from "@/lib/utils";
+import { cn, formateData } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -11,24 +11,28 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import SecondaryButton from "../SecondaryButton";
 import { Label } from "../ui/label";
 import { ApiDataTypes } from "@/types";
 import Link from "next/link";
 import { TotalPriceAndTotalDays } from "@/helper/TotalPriceAndTotalDays";
+import GetUnavailableRoom from "./GetunAbailableRoom";
 
-export default function BookingSection({
-  data,
-}: {
+interface BookingSectionProps {
   data: ApiDataTypes | null;
-}) {
-  const [roomQuantity, setRoomQuantity] = useState<number>(1);
+}
+
+export default function BookingSection({ data }: BookingSectionProps) {
   const [error, setError] = useState<string | null>(null);
   const [date, setDate] = useState<DateRange | undefined>({
     from: new Date(),
     to: addDays(new Date(), 10),
   });
+
+  // Get unavailable room
+
+  const { unAvailableDate, loading } = GetUnavailableRoom({ data, date });
 
   const disablePreviousDates = (date: Date) => {
     return isBefore(date, new Date());
@@ -39,15 +43,13 @@ export default function BookingSection({
 
   useEffect(() => {
     if (!fromDate && !toDate) {
-      setError("please select check-in and check-out dates");
+      setError("Please select check-in and check-out dates");
     } else if (fromDate && !toDate) {
-      setError("please select check-out date");
+      setError("Please select check-out date");
     } else {
       setError(null);
     }
   }, [fromDate, toDate]);
-
-  // check if the user has selected the dates
 
   const fromDateString = fromDate
     ? format(fromDate, "dd MMMM yyyy")
@@ -56,38 +58,27 @@ export default function BookingSection({
 
   const { totalPrice, totalDays } = TotalPriceAndTotalDays({
     price: data?.price ?? 0,
-    roomQuantity,
-    fromDate: fromDate!,
-    toDate: toDate!,
+    fromDate: fromDate || new Date(),
+    toDate: toDate || new Date(),
   });
-
-  // create an array of numbers from
-
-  const array = Array.from(
-    { length: data?.quantity ?? 0 },
-    (_, index) => index + 1
-  );
-
-  // create new form data
 
   const newFormData = {
     checkIn: fromDateString,
     checkOut: toDateString,
     totalPrice: totalPrice,
-    roomQuantity: roomQuantity,
     roomId: data?._id,
   };
 
   return (
-    <div className="grid gap-6 sm:p-4 lg:p-8 bg-white sm:shadow-xl rounded-lg">
+    <div className="grid gap-6 sm:p-6 lg:p-8 bg-white sm:shadow-md rounded-lg border border-gray-200">
       <div>
-        <Label className="text-lg text-[#818186]">Select date</Label>
+        <Label className="text-lg text-gray-700">Select Date</Label>
         <Popover>
           <PopoverTrigger asChild>
             <Button
               variant={"outline"}
               className={cn(
-                "w-full justify-start text-left font-normal text-[#818186] border-[#e4e4e4]",
+                "w-full justify-start text-left font-normal text-gray-600 border-gray-300",
                 !date && "text-muted-foreground"
               )}
             >
@@ -120,32 +111,30 @@ export default function BookingSection({
         {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
       </div>
 
-      <div className="space-y-4">
-        <div className="flex flex-wrap">
-          <div className="flex items-center space-x-4">
-            <span className="text-[#818186]">Reserve</span>
-            <select
-              onChange={(event: ChangeEvent<HTMLSelectElement>) =>
-                setRoomQuantity(Number(event.target.value))
-              }
-              name="cars"
-              className="py-1 px-2 border border-primary2"
-            >
-              {array.map((num) => (
-                <option key={num} value={num}>
-                  {num}
-                </option>
-              ))}
-            </select>
-            <span className="text-gray-500">of {data?.quantity} available</span>
+      {unAvailableDate?.length > 0 &&
+        unAvailableDate.map((room: any) => (
+          <div
+            key={room.roomId}
+            className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg"
+          >
+            <p className="text-red-600 font-semibold">
+              This room is unavailable from
+              <span className="font-bold p-1">{formateData(room.checkIn)}</span>
+              to
+              <span className="font-bold p-1">
+                {formateData(room.checkOut)}
+              </span>
+              for the selected dates. Please select another date.
+            </p>
           </div>
-          <p className="mt-1 text-gray-500">accommodations</p>
-        </div>
-        <div className="flex items-center space-x-1">
-          <h3 className="text-xl">Total :</h3>
-          <p className="text-gray-700 text-2xl font-semibold">
+        ))}
+
+      <div className="space-y-6">
+        <div className="flex items-center space-x-2">
+          <h3 className="text-xl font-medium text-gray-800">Total:</h3>
+          <p className="text-2xl font-semibold text-primary">
             ${totalPrice || data?.price}
-            <span className="text-sm font-normal">
+            <span className="text-sm font-normal text-gray-600">
               / per {totalDays || ""} night
             </span>
           </p>
@@ -158,8 +147,10 @@ export default function BookingSection({
           }}
         >
           <SecondaryButton
-            text="CONFIRM RESERVATION"
-            disabled={error ? true : false}
+            text="Confirm Reservation"
+            disabled={
+              error ? true : false || loading || unAvailableDate.length > 0
+            }
             className="w-full mt-4"
           />
         </Link>

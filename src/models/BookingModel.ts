@@ -5,11 +5,10 @@ export interface IBookingType extends mongoose.Document {
   email: string;
   message?: string;
   roomId: string;
-  checkIn: string;
-  checkOut: string;
+  checkIn: Date;
+  checkOut: Date;
   paymentMethod: string;
   phoneNumber: string;
-  roomQuantity: number;
   totalPrice: number;
   bookingStatus: string;
   paymentStatus: string;
@@ -40,11 +39,11 @@ const bookingSchema: Schema<IBookingType> = new Schema(
       required: [true, "roomId is required"],
     },
     checkIn: {
-      type: String,
+      type: Date,
       required: [true, "checkIn is required"],
     },
     checkOut: {
-      type: String,
+      type: Date,
       required: [true, "checkOut is required"],
     },
     paymentMethod: {
@@ -54,10 +53,6 @@ const bookingSchema: Schema<IBookingType> = new Schema(
     phoneNumber: {
       type: String,
       required: [true, "phoneNumber is required"],
-    },
-    roomQuantity: {
-      type: Number,
-      required: [true, "roomQuantity is required"],
     },
     totalPrice: {
       type: Number,

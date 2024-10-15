@@ -62,7 +62,6 @@ export async function GET(
               description: "$description",
               price: "$price",
               images: "$images",
-              quantity: "$quantity",
             },
           },
           reviews: {
@@ -216,7 +215,6 @@ export async function PUT(req: Request) {
       children: Number(formData.get("children")),
       description: formData.get("description") as string | null,
       price: Number(formData.get("price")),
-      quantity: Number(formData.get("quantity")),
       images: updatedImages,
     };
 

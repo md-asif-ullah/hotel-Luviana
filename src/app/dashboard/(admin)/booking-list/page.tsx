@@ -50,7 +50,6 @@ function BookingsList() {
       cell: ({ row }) => {
         const date = row.getValue<string>("createdAt");
         const formattedDate = formateData(date);
-
         return <div className="font-medium text-nowrap">{formattedDate}</div>;
       },
     },
@@ -64,16 +63,26 @@ function BookingsList() {
     {
       accessorKey: "checkIn",
       header: "Check-In",
-      cell: ({ row }) => (
-        <div className="capitalize text-nowrap">{row.getValue("checkIn")}</div>
-      ),
+      cell: ({ row }) => {
+        const checkIn = row.getValue("checkIn");
+        return (
+          <div className="capitalize text-nowrap">
+            {formateData(checkIn as string)}
+          </div>
+        );
+      },
     },
     {
       accessorKey: "checkOut",
       header: "Check-Out",
-      cell: ({ row }) => (
-        <div className="capitalize text-nowrap">{row.getValue("checkOut")}</div>
-      ),
+      cell: ({ row }) => {
+        const checkOut = row.getValue("checkOut");
+        return (
+          <div className="capitalize text-nowrap">
+            {formateData(checkOut as string)}
+          </div>
+        );
+      },
     },
     {
       accessorKey: "paymentStatus",

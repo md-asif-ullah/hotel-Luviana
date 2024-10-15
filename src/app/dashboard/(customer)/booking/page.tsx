@@ -110,10 +110,6 @@ function Booking() {
                 Price:
                 <span className="text-gray-600"> ${booking.totalPrice}</span>
               </p>
-              <p className="text-sm text-black">
-                Quantity:
-                <span className="text-gray-500">{booking.roomQuantity}</span>
-              </p>
             </div>
           </div>
         </div>

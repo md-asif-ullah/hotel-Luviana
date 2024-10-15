@@ -30,7 +30,6 @@ export async function POST(req: Request) {
 
     const { totalPrice } = TotalPriceAndTotalDays({
       price: findroom?.price ?? 0,
-      roomQuantity: data.roomQuantity,
       fromDate: new Date(data.checkIn),
       toDate: new Date(data.checkOut),
     });
@@ -41,6 +40,8 @@ export async function POST(req: Request) {
       bookingId: Date.now().toString() + Math.floor(Math.random() * 10000),
       roomName: findroom.roomName,
       roomImages: findroom.images,
+      checkIn: new Date(data.checkIn),
+      checkOut: new Date(data.checkOut),
     };
 
     const createBooking = await BookingModel.create(newBookingData);

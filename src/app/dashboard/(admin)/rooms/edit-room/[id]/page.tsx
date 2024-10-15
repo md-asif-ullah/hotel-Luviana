@@ -66,7 +66,6 @@ function AddRoomForm() {
       amenities: "",
       description: "",
       price: "",
-      quantity: "",
     },
   });
 
@@ -108,7 +107,6 @@ function AddRoomForm() {
       form.setValue("amenities", room.amenities);
       form.setValue("description", room.description);
       form.setValue("price", room.price.toString());
-      form.setValue("quantity", room.quantity.toString());
       setExistingImages(room.images);
     }
   }, [room, form]);
@@ -131,7 +129,6 @@ function AddRoomForm() {
     formData.append("amenities", values.amenities);
     formData.append("description", values.description);
     formData.append("price", values.price);
-    formData.append("quantity", values.quantity);
 
     for (let i = 0; i < newImages.length; i++) {
       formData.append("newImages", newImages[i]);
@@ -243,24 +240,15 @@ function AddRoomForm() {
           </div>
 
           {/* Prize */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <CustomForm
-              FieldType={FormFieldTypes.Input}
-              control={form.control}
-              name="price"
-              label="Prize"
-              type="number"
-              placeholder="Enter room prize"
-            />
-            <CustomForm
-              FieldType={FormFieldTypes.Input}
-              control={form.control}
-              name="quantity"
-              label="Quantity"
-              type="number"
-              placeholder="Enter room quantity"
-            />
-          </div>
+
+          <CustomForm
+            FieldType={FormFieldTypes.Input}
+            control={form.control}
+            name="price"
+            label="Prize"
+            type="number"
+            placeholder="Enter room prize"
+          />
 
           {/* Amenities */}
           <CustomForm

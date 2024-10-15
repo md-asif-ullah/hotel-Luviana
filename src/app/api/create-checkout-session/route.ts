@@ -26,7 +26,6 @@ export async function POST(req: Request) {
 
     const { totalPrice } = TotalPriceAndTotalDays({
       price: findRoom?.price ?? 0,
-      roomQuantity: data.roomQuantity,
       fromDate: new Date(data.checkIn),
       toDate: new Date(data.checkOut),
     });
@@ -51,8 +50,6 @@ export async function POST(req: Request) {
       success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/cancel`,
     });
-
-    console.log("session", session);
 
     await BookingModel.create({
       ...data,

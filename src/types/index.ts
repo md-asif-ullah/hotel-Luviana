@@ -21,7 +21,6 @@ export interface RoomTypes {
   children: number;
   description: string;
   price: number;
-  quantity: number;
   images: string[];
 }
 
@@ -49,7 +48,6 @@ export interface ApiDataTypes {
   children: number;
   description: string;
   price: number;
-  quantity: number;
   images: string[];
 }
 
@@ -89,7 +87,6 @@ export interface IBookingType {
   paymentMethod: string;
   checkIn: string;
   checkOut: string;
-  roomQuantity: number;
   roomId: string;
   bookingStatus: string;
   paymentStatus: string;
@@ -113,7 +110,6 @@ export interface IGetBookingTypes {
   paymentMethod: string;
   checkIn: string;
   checkOut: string;
-  roomQuantity: number;
   roomId: string;
   bookingId: string;
   roomName: string;

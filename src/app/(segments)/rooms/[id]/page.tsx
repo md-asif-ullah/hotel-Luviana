@@ -3,8 +3,9 @@ import Image from "next/image";
 import RoomDetails from "@/components/Room/RoomDetails";
 import BookingSection from "@/components/Room/BookingSection";
 import ShowReviews from "@/components/Room/ShowReviews";
-import GetRoom from "@/components/Room/GetRoom";
 import ErrorPage from "@/components/ErrorPage";
+import { Suspense } from "react";
+import GetRoom from "@/components/Room/GetRoom";
 
 async function Room({ params }: { params: { id: string } }) {
   const data = await GetRoom({ params });
@@ -68,9 +69,11 @@ async function Room({ params }: { params: { id: string } }) {
           <RoomDetails data={data?.roomDetails} />
         </div>
         <section className="col-span-2 mt-20">
-          <div className="sticky top-10">
-            <BookingSection data={data?.roomDetails} />
-          </div>
+          <Suspense fallback={<div>Loading...</div>}>
+            <div className="sticky top-10">
+              <BookingSection data={data?.roomDetails} />
+            </div>
+          </Suspense>
         </section>
       </section>
 

@@ -16,7 +16,6 @@ import { useAuth } from "@/components/hooks/useAuth";
 import { useToast } from "@/components/ui/use-toast";
 import BookingWithOutAmount from "@/components/BookingWithOutAmount";
 import PaymentSection from "@/components/PaymentSection";
-import { User } from "lucide-react";
 
 function BookingInformation() {
   const [tramsAndConditions, setTermsAndConditions] = useState<boolean>(true);
@@ -58,7 +57,6 @@ function BookingInformation() {
       paymentMethod: values.paymentMethod,
       checkIn: data.checkIn,
       checkOut: data.checkOut,
-      roomQuantity: data.roomQuantity,
       roomId: data.roomId,
       bookingStatus: "pending",
       paymentStatus: "cash",
