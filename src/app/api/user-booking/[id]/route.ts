@@ -3,11 +3,14 @@ import connectToDB from "@/lib/ConnectToDB";
 import BookingModel from "@/models/BookingModel";
 import mongoose from "mongoose";
 
-export async function GET(req: Request) {
+export async function GET(
+  req: Request,
+  { params }: { params: { id: string } }
+) {
   await connectToDB();
 
   try {
-    const id = req.url.split("/").pop();
+    const { id } = params;
 
     if (!id || !mongoose.isValidObjectId(id)) {
       return errorResponse({

@@ -154,11 +154,14 @@ export async function DELETE(request: Request) {
   }
 }
 
-export async function PUT(req: Request) {
+export async function PUT(
+  req: Request,
+  { params }: { params: { id: string } }
+) {
   await connectToDB();
 
   try {
-    const id = req.url.split("/").pop();
+    const id = params.id;
 
     const formData = await req.formData();
 
