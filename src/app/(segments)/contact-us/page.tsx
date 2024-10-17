@@ -1,6 +1,11 @@
 import ContactInfo from "@/components/contact/ContactInfo";
 import ContactForm from "@/components/forms/ContactForm";
 import InfomationSection from "@/components/InfomationSection";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Contact Us | Hotel Luviana",
+};
 
 function ContactUs() {
   return (

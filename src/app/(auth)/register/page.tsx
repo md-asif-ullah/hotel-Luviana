@@ -1,6 +1,11 @@
 import RegisterForm from "@/components/forms/RegisterForm";
 import InfomationSection from "@/components/InfomationSection";
+import { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Register to Hotel Luviana",
+};
 
 function Register() {
   return (

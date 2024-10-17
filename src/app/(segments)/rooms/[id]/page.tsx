@@ -6,6 +6,19 @@ import ShowReviews from "@/components/Room/ShowReviews";
 import ErrorPage from "@/components/ErrorPage";
 import { Suspense } from "react";
 import GetRoom from "@/components/Room/GetRoom";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
+  const data = await GetRoom({ params });
+
+  return {
+    title: data?.roomDetails.roomName,
+  };
+}
 
 async function Room({ params }: { params: { id: string } }) {
   const data = await GetRoom({ params });

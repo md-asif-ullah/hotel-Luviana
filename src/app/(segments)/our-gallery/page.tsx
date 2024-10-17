@@ -1,7 +1,11 @@
 import MainHeader from "@/components/MainHeader";
 import Image from "next/image";
 
-function page() {
+export const metadata = {
+  title: "Luviana Restaurant | Our Gallery",
+};
+
+function Gallery() {
   const images = [
     { src: "/assets/gallery-images/about-rooms-1-692x1024.jpg" },
     { src: "/assets/gallery-images/about-rooms-2-1024x692.jpg" },
@@ -48,4 +52,4 @@ function page() {
   );
 }
 
-export default page;
+export default Gallery;

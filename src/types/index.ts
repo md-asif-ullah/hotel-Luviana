@@ -125,3 +125,10 @@ export interface IPaginationTypes {
   prevoiusPage: number | null;
   nextPage: number | null;
 }
+
+export interface IGetBookingResponseTypes {
+  status: number;
+  success: boolean;
+  message: string;
+  payload: IGetBookingTypes[];
+}

@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import MainHeader from "@/components/MainHeader";
+import { Metadata } from "next";
 import Image from "next/image";
 import { FaWifi } from "react-icons/fa";
 import { MdFreeBreakfast, MdRoomService } from "react-icons/md";
@@ -15,6 +16,10 @@ interface Services {
   description: string;
   icon: JSX.Element;
 }
+
+export const metadata: Metadata = {
+  title: "About Luviana",
+};
 
 function AboutLuviana() {
   const founders: Founder[] = [

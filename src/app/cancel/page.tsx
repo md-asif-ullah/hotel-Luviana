@@ -1,7 +1,7 @@
 import SecondaryButton from "@/components/SecondaryButton";
 import Link from "next/link";
 
-const Success = () => {
+const Cancel = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4 md:p-8">
       <h1 className="text-3xl md:text-4xl font-bold text-[#0a2370] mb-4 md:mb-6">
@@ -21,4 +21,4 @@ const Success = () => {
   );
 };
 
-export default Success;
+export default Cancel;

@@ -1,4 +1,9 @@
 import InformationSection from "@/components/profile/InformationSection";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Profile | Hotel Luviana",
+};
 
 function Profile() {
   return (
