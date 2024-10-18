@@ -1,6 +1,7 @@
 import { errorResponse, successResponse } from "@/helper/handleResponse";
 import cloudinary from "@/lib/cloudinary";
 import connectToDB from "@/lib/ConnectToDB";
+import Review from "@/models/ReviewModel";
 import Room from "@/models/RoomModels";
 import mongoose from "mongoose";
 import { NextRequest, NextResponse } from "next/server";
@@ -125,12 +126,13 @@ export async function GET(
   }
 }
 
-export async function DELETE(request: Request) {
+export async function DELETE(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
   await connectToDB();
   try {
-    const id = request.url.split("/").pop();
-
-    const existingRooms = await Room.findByIdAndDelete(id);
+    const existingRooms = await Room.findByIdAndDelete(params.id);
 
     if (!existingRooms) {
       return errorResponse({
@@ -139,6 +141,16 @@ export async function DELETE(request: Request) {
         message: "No rooms found",
       });
     }
+
+    existingRooms.images.forEach(async (image) => {
+      const publicId = image.split("/").pop()?.split(".")[0];
+
+      if (publicId) {
+        await cloudinary.uploader.destroy(`hotel-luvina/rooms/${publicId}`);
+      }
+    });
+
+    await Review.deleteMany({ roomId: new mongoose.Types.ObjectId(params.id) });
 
     return successResponse({
       status: 200,
