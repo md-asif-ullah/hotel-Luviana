@@ -53,9 +53,14 @@ export async function POST(req: Request) {
 
     await BookingModel.create({
       ...data,
+      bookingId: Date.now().toString() + Math.floor(Math.random() * 10000),
+      roomName: findRoom.roomName,
       totalPrice,
       paymentIntentId: session.id,
       paymentStatus: "pending",
+      roomImages: findRoom.images,
+      checkIn: new Date(data.checkIn),
+      checkOut: new Date(data.checkOut),
     });
 
     return successResponse({
