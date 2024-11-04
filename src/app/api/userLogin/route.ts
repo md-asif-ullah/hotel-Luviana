@@ -3,8 +3,20 @@ import connectToDB from "@/lib/ConnectToDB";
 import bcrypt from "bcryptjs";
 import User from "@/models/userModel";
 import JwtToken from "@/helper/JwtToken";
+import limit from "@/components/rateLimiter";
 
-export async function POST(request: Request) {
+export async function POST(request: Request, res: Response) {
+  const ip = request.headers.get("X-Forwarded-For") ?? "unknown";
+  const isRateLimited = limit(ip);
+
+  if (isRateLimited) {
+    return errorResponse({
+      status: 429,
+      success: false,
+      message: "Too many requests , please try again 5 minutes later",
+    });
+  }
+
   await connectToDB();
   try {
     const { email, password } = await request.json();
