@@ -13,6 +13,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 import { loginFormSchema } from "@/lib/zodValidation";
 import { useAuth } from "@/components/hooks/useAuth";
+import axios from "axios";
 
 function LoginFrom() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -39,35 +40,23 @@ function LoginFrom() {
     try {
       setLoading(true);
 
-      const res = await fetch("/api/userLogin", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newFormData),
-      });
+      const res = await axios.post("/api/userLogin", newFormData);
 
-      if (!res.ok) {
-        throw new Error("failed to register");
-      }
-
-      const data = await res.json();
-
-      if (data.success) {
-        setUser(data.payload.user);
+      if (res.data.success) {
+        setUser(res.data.payload.user);
 
         form.reset();
-        router.push(`/`);
+        router.back();
         toast({
           title: "success",
           description: "You have successfully logged in.",
         });
       }
-      if (!data.success) {
+      if (!res.data.success) {
         toast({
           variant: "destructive",
           title: "Error",
-          description: data?.message || "failed to login",
+          description: res.data?.message || "failed to login",
         });
       }
     } catch (error: any) {

@@ -5,7 +5,7 @@ import User from "@/models/userModel";
 import JwtToken from "@/helper/JwtToken";
 import limit from "@/components/rateLimiter";
 
-export async function POST(request: Request, res: Response) {
+export async function POST(request: Request) {
   const ip = request.headers.get("X-Forwarded-For") ?? "unknown";
   const isRateLimited = limit(ip);
 
